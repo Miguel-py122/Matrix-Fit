@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Imagem da academia (placeholder)">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b0f0d"/>
+      <stop offset="1" stop-color="#06110a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#18d36e" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#18d36e" stop-opacity="0.10"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="38" fill="url(#bg)"/>
+  <rect x="40" y="40" width="1120" height="720" rx="30" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)"/>
+  <path d="M140 580 L360 360 L520 500 L710 290 L960 540 L960 640 L140 640 Z" fill="rgba(255,255,255,0.06)"/>
+  <rect x="120" y="140" width="520" height="18" rx="9" fill="url(#accent)"/>
+  <rect x="120" y="178" width="420" height="12" rx="6" fill="rgba(255,255,255,0.18)"/>
+  <rect x="120" y="206" width="360" height="12" rx="6" fill="rgba(255,255,255,0.14)"/>
+  <text x="120" y="270" fill="rgba(255,255,255,0.72)" font-family="system-ui,Segoe UI,Roboto,Arial" font-weight="800" font-size="22">Adicione uma foto real em /assets</text>
+  <text x="120" y="305" fill="rgba(255,255,255,0.60)" font-family="system-ui,Segoe UI,Roboto,Arial" font-weight="600" font-size="16">Ex.: academia-1.jpg, academia-2.jpg…</text>
+</svg>

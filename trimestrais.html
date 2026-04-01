@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0f0d" />
+    <title>MatrixFit — Planos Trimestrais</title>
+    <meta
+      name="description"
+      content="MatrixFit — planos trimestrais com visual premium, categorias Ouro, Prata e Bronze."
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preload" href="./assets/imagens/logo-academia.png" as="image" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body class="page-pricing">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="topbar" role="banner">
+      <div class="container topbar__inner">
+        <div class="brand" aria-label="MatrixFit">
+          <img
+            class="brand__logo"
+            src="./assets/imagens/logo-academia.png"
+            data-fallback="./assets/logo-placeholder.svg"
+            alt="Logo MatrixFit"
+            width="180"
+            height="90"
+            loading="eager"
+            decoding="async"
+          />
+          <div class="brand__text">
+            <p class="brand__name">MATRIXFIT</p>
+            <p class="brand__tagline">O corpo alcança o que a mente acredita</p>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="Navegação">
+          <a class="tab" href="./index.html">Início</a>
+          <a class="tab" href="./planos.html">Mensais</a>
+          <a class="tab" href="#planos">Trimestrais</a>
+          <a class="tab" href="./index.html#painel-diarias">Diárias</a>
+          <a class="tab" href="./index.html#painel-contato">Contato</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo" class="main" role="main">
+      <div class="container">
+        <section class="pricing-page pricing-page--cards" id="planos">
+          <div class="pricing-page__head pricing-page__head--cards">
+            <p class="eyebrow eyebrow--warm">Planos MatrixFit</p>
+            <h1 class="pricing-page__title pricing-page__title--cards">Planos trimestrais</h1>
+            <p class="pricing-page__text">Os planos trimestrais ficam em uma aba separada para manter a navegação mais limpa.</p>
+            <div class="pricing-page__switch" aria-label="Tipos de planos">
+              <a class="pricing-page__switch-link" href="./planos.html">Mensais</a>
+              <a class="pricing-page__switch-link is-active" href="./trimestrais.html" aria-current="page">Trimestrais</a>
+            </div>
+          </div>
+
+          <div class="plan-groups">
+            <section class="plan-group plan-group--gold">
+              <div class="plan-group__head">
+                <h2 class="plan-group__title">Plano Ouro</h2>
+                <p class="plan-group__text">Acesso mais completo da MatrixFit.</p>
+              </div>
+              <div class="plan-carousel">
+                <button class="plan-carousel__arrow plan-carousel__arrow--prev" type="button" aria-label="Ver planos anteriores">
+                  <span aria-hidden="true">&lsaquo;</span>
+                </button>
+                <div class="pricing-cards pricing-cards--matrix pricing-cards--variants">
+                <article class="pricing-card pricing-card--clean pricing-card--golden"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Ouro Trimestral</h3><p class="pricing-card__subtitle">Acesso livre</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 129,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--gold" href="./index.html#painel-contato">Quero este plano</a></article>
+                <article class="pricing-card pricing-card--clean pricing-card--golden"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Ouro 4 Dias Trimestral</h3><p class="pricing-card__subtitle">4x por semana</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 119,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--gold" href="./index.html#painel-contato">Quero este plano</a></article>
+                <article class="pricing-card pricing-card--clean pricing-card--golden"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Ouro 3 Dias Trimestral</h3><p class="pricing-card__subtitle">3x por semana</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 109,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--gold" href="./index.html#painel-contato">Quero este plano</a></article>
+                </div>
+                <button class="plan-carousel__arrow plan-carousel__arrow--next" type="button" aria-label="Ver próximos planos">
+                  <span aria-hidden="true">&rsaquo;</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="plan-group plan-group--silver">
+              <div class="plan-group__head">
+                <h2 class="plan-group__title">Plano Prata</h2>
+                <p class="plan-group__text">Treinos de segunda a sexta.</p>
+              </div>
+              <div class="plan-carousel">
+                <button class="plan-carousel__arrow plan-carousel__arrow--prev" type="button" aria-label="Ver planos anteriores">
+                  <span aria-hidden="true">&lsaquo;</span>
+                </button>
+                <div class="pricing-cards pricing-cards--matrix pricing-cards--variants">
+                <article class="pricing-card pricing-card--clean pricing-card--prata"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Prata Segunda a Sexta</h3><p class="pricing-card__subtitle">Segunda a sexta</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 119,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--accent" href="./index.html#painel-contato">Quero este plano</a></article>
+                <article class="pricing-card pricing-card--clean pricing-card--prata"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Prata 4 Dias Trimestral</h3><p class="pricing-card__subtitle">Segunda a sexta</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 109,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--accent" href="./index.html#painel-contato">Quero este plano</a></article>
+                <article class="pricing-card pricing-card--clean pricing-card--prata"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Prata 3 Dias Trimestral</h3><p class="pricing-card__subtitle">Segunda a sexta</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 99,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--accent" href="./index.html#painel-contato">Quero este plano</a></article>
+                </div>
+                <button class="plan-carousel__arrow plan-carousel__arrow--next" type="button" aria-label="Ver próximos planos">
+                  <span aria-hidden="true">&rsaquo;</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="plan-group plan-group--bronze">
+              <div class="plan-group__head">
+                <h2 class="plan-group__title">Plano Bronze</h2>
+                <p class="plan-group__text">Treinos entre 7h e 15h.</p>
+              </div>
+              <div class="plan-carousel">
+                <button class="plan-carousel__arrow plan-carousel__arrow--prev" type="button" aria-label="Ver planos anteriores">
+                  <span aria-hidden="true">&lsaquo;</span>
+                </button>
+                <div class="pricing-cards pricing-cards--matrix pricing-cards--variants">
+                <article class="pricing-card pricing-card--clean pricing-card--bronze"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Bronze Trimestral</h3><p class="pricing-card__subtitle">7h às 15h</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 99,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--bronze" href="./index.html#painel-contato">Quero este plano</a></article>
+                <article class="pricing-card pricing-card--clean pricing-card--bronze"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Bronze 4 Dias Trimestral</h3><p class="pricing-card__subtitle">7h às 15h</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 89,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--bronze" href="./index.html#painel-contato">Quero este plano</a></article>
+                <article class="pricing-card pricing-card--clean pricing-card--bronze"><div class="pricing-card__top"><div><h3 class="pricing-card__plan">Bronze 3 Dias Trimestral</h3><p class="pricing-card__subtitle">7h às 15h</p></div></div><div class="pricing-card__price-block"><span class="pricing-card__price-label">Preço</span><strong class="pricing-card__price">R$ 79,90</strong><span class="pricing-card__price-suffix">trimestral</span></div><a class="btn btn--pricing btn--pricing--bronze" href="./index.html#painel-contato">Quero este plano</a></article>
+                </div>
+                <button class="plan-carousel__arrow plan-carousel__arrow--next" type="button" aria-label="Ver próximos planos">
+                  <span aria-hidden="true">&rsaquo;</span>
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p>MatrixFit — A força que constrói sua melhor versão.</p>
+        <p>© <span id="ano"></span> MatrixFit</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0f0d" />
+    <title>MatrixFit — Diárias e Pacotes</title>
+    <meta
+      name="description"
+      content="MatrixFit — diárias e pacotes com visual premium e detalhes verdes."
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preload" href="./assets/imagens/logo-academia.png" as="image" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body class="page-dailies">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="topbar" role="banner">
+      <div class="container topbar__inner">
+        <div class="brand" aria-label="MatrixFit">
+          <img
+            class="brand__logo"
+            src="./assets/imagens/logo-academia.png"
+            data-fallback="./assets/logo-placeholder.svg"
+            alt="Logo MatrixFit"
+            width="180"
+            height="90"
+            loading="eager"
+            decoding="async"
+          />
+          <div class="brand__text">
+            <p class="brand__name">MATRIXFIT</p>
+            <p class="brand__tagline">O corpo alcança o que a mente acredita</p>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="Navegação">
+          <a class="tab" href="./index.html">Início</a>
+          <a class="tab" href="./planos.html">Mensais</a>
+          <a class="tab" href="./trimestrais.html">Trimestrais</a>
+          <a class="tab" href="#diarias">Diárias</a>
+          <a class="tab" href="./index.html#painel-contato">Contato</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo" class="main" role="main">
+      <div class="container">
+        <section class="pricing-page pricing-page--cards" id="diarias">
+          <div class="pricing-page__head pricing-page__head--cards">
+            <p class="eyebrow">Entradas e pacotes</p>
+            <h1 class="pricing-page__title pricing-page__title--cards">Diárias e pacotes</h1>
+            <p class="pricing-page__text">Uma página dedicada para diárias, com o mesmo padrão visual das mensalidades e leitura mais limpa.</p>
+          </div>
+
+          <div class="plan-groups">
+            <section class="plan-group plan-group--daily">
+              <div class="plan-group__head">
+                <h2 class="plan-group__title">Diárias MatrixFit</h2>
+                <p class="plan-group__text">Escolha entre entrada avulsa ou pacotes com melhor custo por treino.</p>
+              </div>
+
+              <div class="plan-carousel">
+                <button class="plan-carousel__arrow plan-carousel__arrow--prev" type="button" aria-label="Ver pacotes anteriores">
+                  <span aria-hidden="true">&lsaquo;</span>
+                </button>
+                <div class="pricing-cards pricing-cards--variants pricing-cards--daily-slider">
+                  <article class="pricing-card pricing-card--clean pricing-card--daily">
+                    <div class="pricing-card__top">
+                      <div>
+                        <h2 class="pricing-card__plan">Diária Avulsa</h2>
+                        <p class="pricing-card__subtitle">Entrada individual</p>
+                      </div>
+                    </div>
+
+                    <div class="pricing-card__price-block">
+                      <span class="pricing-card__price-label">Preço</span>
+                      <strong class="pricing-card__price">R$ 20</strong>
+                      <span class="pricing-card__price-suffix">1 diária</span>
+                    </div>
+
+                    <p class="daily-card__text">Ideal para quem quer experimentar a MatrixFit sem compromisso maior.</p>
+
+                    <a class="btn btn--pricing btn--pricing--daily" href="./index.html#painel-contato">Quero treinar</a>
+                  </article>
+
+                  <article class="pricing-card pricing-card--clean pricing-card--daily">
+                    <div class="pricing-card__top">
+                      <div>
+                        <h2 class="pricing-card__plan">Pacote 5 Diárias</h2>
+                        <p class="pricing-card__subtitle">Mais flexibilidade</p>
+                      </div>
+                    </div>
+
+                    <div class="pricing-card__price-block">
+                      <span class="pricing-card__price-label">Preço</span>
+                      <strong class="pricing-card__price">R$ 80</strong>
+                      <span class="pricing-card__price-suffix">R$ 16 por diária</span>
+                    </div>
+
+                    <p class="daily-card__text">A melhor escolha para quem quer treinar algumas vezes e economizar no valor por entrada.</p>
+
+                    <a class="btn btn--pricing btn--pricing--daily" href="./index.html#painel-contato">Comprar pacote</a>
+                  </article>
+
+                  <article class="pricing-card pricing-card--clean pricing-card--daily">
+                    <div class="pricing-card__top">
+                      <div>
+                        <h2 class="pricing-card__plan">Pacote 10 Diárias</h2>
+                        <p class="pricing-card__subtitle">Melhor custo por entrada</p>
+                      </div>
+                    </div>
+
+                    <div class="pricing-card__price-block">
+                      <span class="pricing-card__price-label">Preço</span>
+                      <strong class="pricing-card__price">R$ 120</strong>
+                      <span class="pricing-card__price-suffix">R$ 12 por diária</span>
+                    </div>
+
+                    <p class="daily-card__text">Opção para quem já sabe que vai usar com mais frequência e quer o menor valor por diária.</p>
+
+                    <a class="btn btn--pricing btn--pricing--daily" href="./index.html#painel-contato">Comprar pacote</a>
+                  </article>
+                </div>
+                <button class="plan-carousel__arrow plan-carousel__arrow--next" type="button" aria-label="Ver próximos pacotes">
+                  <span aria-hidden="true">&rsaquo;</span>
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <div class="pricing-banner pricing-banner--daily">
+            <div>
+              <p class="pricing-banner__eyebrow">Como funciona</p>
+              <h2 class="pricing-banner__title">Escolha a diária ou o pacote e fale com a MatrixFit pelo WhatsApp.</h2>
+            </div>
+            <a class="btn btn--primary" href="./index.html#painel-contato">Falar com a academia</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p>MatrixFit — A força que constrói sua melhor versão.</p>
+        <p>© <span id="ano"></span> MatrixFit</p>
+      </div>
+    </footer>
+  </body>
+</html>

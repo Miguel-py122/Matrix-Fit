@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0f0d" />
+    <title>MatrixFit — Academia de Musculação</title>
+    <meta
+      name="description"
+      content="MatrixFit — academia de musculação. Conheça a academia, veja planos e diárias, e fale com a gente."
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preload" href="./assets/imagens/logo-academia.png" as="image" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body class="page-home">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="topbar" role="banner">
+      <div class="container topbar__inner">
+        <div class="brand" aria-label="MatrixFit">
+          <img
+            class="brand__logo"
+            src="./assets/imagens/logo-academia.png"
+            data-fallback="./assets/logo-placeholder.svg"
+            alt="Logo MatrixFit"
+            width="180"
+            height="90"
+            loading="eager"
+            decoding="async"
+          />
+          <div class="brand__text">
+            <p class="brand__name">MATRIXFIT</p>
+            <p class="brand__tagline">O corpo alcança o que a mente acredita</p>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="Navegação">
+          <a class="tab" href="#painel-academia">A Academia</a>
+          <a class="tab" href="./planos.html">Mensais</a>
+          <a class="tab" href="./trimestrais.html">Trimestrais</a>
+          <a class="tab" href="./diarias.html">Diárias</a>
+          <a class="tab" href="#painel-contato">Contato</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo" class="main" role="main">
+      <div class="container">
+        <section class="showcase" aria-label="Apresentação da MatrixFit">
+          <div class="showcase__copy">
+            <p class="eyebrow">Academia Matrix Fit</p>
+            <h1 class="showcase__title">Performance, disciplina e uma estrutura feita para quem quer evoluir de verdade.</h1>
+            <p class="showcase__text">
+              A MatrixFit entrega ambiente forte, atendimento direto e planos organizados para facilitar a escolha de quem quer começar ou subir de nível no treino.
+            </p>
+
+            <div class="showcase__actions">
+              <a class="btn btn--primary" href="#painel-contato">Falar no WhatsApp</a>
+              <a class="btn btn--ghost" href="./planos.html">Ver mensais</a>
+            </div>
+
+            <div class="showcase__stats" aria-label="Resumo rápido">
+              <div class="stat">
+                <span class="stat__value">Ouro</span>
+                <span class="stat__label">plano com acesso mais completo</span>
+              </div>
+              <div class="stat">
+                <span class="stat__value">3</span>
+                <span class="stat__label">categorias de plano</span>
+              </div>
+              <div class="stat">
+                <span class="stat__value">Macaúbas</span>
+                <span class="stat__label">atendimento no centro da cidade</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="showcase__panel" aria-label="Resumo da academia">
+            <figure class="showcase__visual">
+              <img src="./assets/imagens/unnamed.png" data-fallback="./assets/image-placeholder.svg" alt="Interior da MatrixFit" loading="lazy" decoding="async" />
+            </figure>
+
+            <div class="showcase__card showcase__card--main">
+              <p class="showcase__card-kicker">Oferta rápida</p>
+              <strong>Diária: R$ 20</strong>
+              <span>Pacotes de 5 e 10 diárias também disponíveis.</span>
+            </div>
+
+            <div class="showcase__card showcase__card--accent">
+              <p class="showcase__card-kicker">Instagram</p>
+              <strong>@academiamatrixfit</strong>
+              <span>Conteúdo e novidades da academia.</span>
+            </div>
+          </aside>
+        </section>
+
+        <!-- ACADEMIA -->
+        <section
+          class="panel"
+          id="painel-academia"
+          role="tabpanel"
+          aria-labelledby="tab-academia"
+          tabindex="-1"
+          data-panel="academia"
+        >
+          <div class="panel__header">
+            <p class="section-kicker">Sobre a academia</p>
+            <h2 class="panel__title">A Academia</h2>
+            <p class="panel__desc">
+              Um ambiente pensado para você treinar com foco, segurança e consistência.
+            </p>
+          </div>
+
+          <div class="grid grid--2">
+            <article class="card">
+              <h3 class="card__title">Estrutura</h3>
+              <p class="card__text">
+                A MatrixFit tem um ambiente organizado, forte visual de marca e espaço preparado para treino com constância.
+              </p>
+              <ul class="list">
+                <li>Área de musculação</li>
+                <li>Área de cardio</li>
+                <li>Ambiente pensado para foco e evolução</li>
+              </ul>
+              <p class="muted">Macaúbas — BA</p>
+            </article>
+
+            <article class="card">
+              <h3 class="card__title">Galeria</h3>
+              <p class="card__text">
+                Visual real da academia para passar mais confiança e valor logo no primeiro acesso.
+              </p>
+              <div class="gallery" aria-label="Fotos da academia">
+                <figure class="gallery__item">
+                  <img src="./assets/imagens/unnamed.png" data-fallback="./assets/image-placeholder.svg" alt="Área de musculação" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="gallery__item">
+                  <img src="./assets/imagens/logo-academia.png" data-fallback="./assets/image-placeholder.svg" alt="Identidade visual da MatrixFit" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="gallery__item">
+                  <img src="./assets/imagens/unnamed.png" data-fallback="./assets/image-placeholder.svg" alt="Espaço interno da academia" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="gallery__item">
+                  <img src="./assets/imagens/logo-academia.png" data-fallback="./assets/image-placeholder.svg" alt="Marca MatrixFit" loading="lazy" decoding="async" />
+                </figure>
+              </div>
+              <p class="muted">Quando você mandar mais fotos reais, a galeria pode virar uma vitrine ainda mais forte da academia.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="cta-band" aria-label="Chamada para ação MatrixFit">
+          <div class="cta-band__copy">
+            <p class="section-kicker">Comece agora</p>
+            <h2 class="cta-band__title">Pronto para treinar na MatrixFit?</h2>
+            <p class="cta-band__text">Fale com a academia, tire suas dúvidas e escolha o plano ou pacote ideal para sua rotina.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn--primary" href="#painel-contato">Quero atendimento</a>
+            <a class="btn btn--ghost" href="./trimestrais.html">Ver planos trimestrais</a>
+          </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section
+          class="panel"
+          id="painel-contato"
+          role="tabpanel"
+          aria-labelledby="tab-contato"
+          tabindex="-1"
+          data-panel="contato"
+        >
+          <div class="panel__header">
+            <p class="section-kicker">Fale com a MatrixFit</p>
+            <h2 class="panel__title">Contato e Dúvidas</h2>
+            <p class="panel__desc">Fale com a MatrixFit, veja localização e resolva tudo rápido pelo canal que preferir.</p>
+          </div>
+
+          <div class="grid grid--2">
+            <article class="card">
+              <h3 class="card__title">Fale com a gente</h3>
+              <div class="contact">
+                <a class="contact__cta" href="https://wa.me/5577999202077?text=Oi%20MatrixFit!%20Quero%20tirar%20uma%20d%C3%BAvida%20e%20saber%20mais%20sobre%20os%20planos." target="_blank" rel="noreferrer">
+                  WhatsApp
+                </a>
+                <div class="contact__items">
+                  <p><span class="label">Telefone:</span> <a href="tel:+5577999202077">(77) 99920-2077</a></p>
+                  <p><span class="label">Instagram:</span> <a href="https://www.instagram.com/academiamatrixfit/" target="_blank" rel="noreferrer">@academiamatrixfit</a></p>
+                  <p><span class="label">Endereço:</span> Rua Dr. Vital Soares, 227 — Centro, Macaúbas — BA, 46500-000</p>
+                  <p>
+                    <span class="label">Horários:</span>
+                    Qua–Sex 05:00–22:00 · Sáb 06:00–11:00 · Dom 08:00–12:00
+                  </p>
+                </div>
+              </div>
+              <p class="muted">Em feriados, os horários podem mudar.</p>
+            </article>
+
+            <article class="card">
+              <h3 class="card__title">Como chegar</h3>
+              <p class="card__text">Abra a rota no Google Maps para chegar mais rápido.</p>
+              <div class="contact">
+                <a
+                  class="contact__cta"
+                  href="https://www.google.com/maps/search/?api=1&query=Rua%20Dr.%20Vital%20Soares%2C%20227%20-%20Centro%2C%20Maca%C3%BAbas%20-%20BA%2C%2046500-000"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Abrir no Maps
+                </a>
+                <p class="muted">Se preferir, fale pelo Instagram ou WhatsApp.</p>
+              </div>
+            </article>
+          </div>
+
+          <footer class="footer footer--site" role="contentinfo">
+            <div class="footer__grid">
+              <div class="footer__column">
+                <p class="footer__brand">MATRIXFIT</p>
+                <p class="footer__text">A força que constrói sua melhor versão.</p>
+                <p class="footer__text">Rua Dr. Vital Soares, 227 — Centro, Macaúbas — BA</p>
+              </div>
+
+              <div class="footer__column">
+                <h3 class="footer__title">Links rápidos</h3>
+                <a href="#painel-academia">A Academia</a>
+                <a href="./planos.html">Planos mensais</a>
+                <a href="./trimestrais.html">Planos trimestrais</a>
+                <a href="./diarias.html">Diárias</a>
+                <a href="#painel-contato">Contato</a>
+              </div>
+
+              <div class="footer__column">
+                <h3 class="footer__title">Contato</h3>
+                <a href="tel:+5577999202077">(77) 99920-2077</a>
+                <a href="https://www.instagram.com/academiamatrixfit/" target="_blank" rel="noreferrer">@academiamatrixfit</a>
+                <p class="footer__text">Qua–Sex 05:00–22:00</p>
+                <p class="footer__text">Sáb 06:00–11:00 · Dom 08:00–12:00</p>
+              </div>
+            </div>
+
+            <div class="footer__bottom">
+              <p>© <span id="ano"></span> MatrixFit. Todos os direitos reservados.</p>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+    <noscript>
+      <div class="noscript container">
+        <p>Seu navegador está com JavaScript desativado. As seções aparecem todas abaixo, sem o modo “abas”.</p>
+      </div>
+    </noscript>
+  </body>
+</html>
