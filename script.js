@@ -131,10 +131,11 @@
       let currentIndex = 0;
       let touchStartX = 0;
       let touchStartY = 0;
-      let scrollFrame = 0;
       let resizeFrame = 0;
+      let scrollEndTimer = 0;
       let cardOffsets = [];
       let currentCard = null;
+      let cardObserver = null;
 
       const dots = document.createElement('div');
       dots.className = 'plan-carousel__dots';
@@ -165,6 +166,13 @@
 
       const measureCards = () => {
         cardOffsets = cards.map((card) => card.offsetLeft);
+      };
+
+      const setCurrentIndex = (index) => {
+        currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+        updateMobileCurrentCard();
+        updateDots();
+        updateMobileArrows();
       };
 
       const updateMobileCurrentCard = () => {
@@ -227,18 +235,49 @@
 
         if (closestIndex === currentIndex) return;
 
-        currentIndex = closestIndex;
-        updateMobileCurrentCard();
-        updateDots();
-        updateMobileArrows();
+        setCurrentIndex(closestIndex);
+      };
+
+      const disconnectObserver = () => {
+        if (!cardObserver) return;
+        cardObserver.disconnect();
+        cardObserver = null;
+      };
+
+      const connectObserver = () => {
+        disconnectObserver();
+        if (!mobileMedia.matches || typeof IntersectionObserver !== 'function') return;
+
+        cardObserver = new IntersectionObserver(
+          (entries) => {
+            let bestEntry = null;
+
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
+                bestEntry = entry;
+              }
+            });
+
+            if (!bestEntry || bestEntry.intersectionRatio < 0.6) return;
+
+            const nextIndex = cards.indexOf(bestEntry.target);
+            if (nextIndex === -1 || nextIndex === currentIndex) return;
+
+            setCurrentIndex(nextIndex);
+          },
+          {
+            root: track,
+            threshold: [0.6, 0.75, 0.9],
+          },
+        );
+
+        cards.forEach((card) => cardObserver.observe(card));
       };
 
       const scrollToCard = (index, behavior = 'smooth') => {
-        currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+        setCurrentIndex(index);
         if (!cardOffsets.length) measureCards();
-        updateMobileCurrentCard();
-        updateDots();
-        updateMobileArrows();
         track.scrollTo({ left: cardOffsets[currentIndex] ?? 0, behavior });
       };
 
@@ -248,6 +287,7 @@
           card.classList.remove('is-prev', 'is-next', 'is-hidden');
         });
         measureCards();
+        connectObserver();
         scrollToCard(currentIndex, behavior);
       };
 
@@ -312,8 +352,7 @@
 
         card.addEventListener('click', () => {
           if (mobileMedia.matches) {
-            currentIndex = index;
-            syncIndexFromScroll();
+            scrollToCard(index);
             return;
           }
 
@@ -325,9 +364,9 @@
       track.addEventListener(
         'scroll',
         () => {
-          if (!mobileMedia.matches) return;
-          window.cancelAnimationFrame(scrollFrame);
-          scrollFrame = window.requestAnimationFrame(syncIndexFromScroll);
+          if (!mobileMedia.matches || cardObserver) return;
+          window.clearTimeout(scrollEndTimer);
+          scrollEndTimer = window.setTimeout(syncIndexFromScroll, 90);
         },
         { passive: true },
       );
@@ -345,7 +384,10 @@
 
       const syncMode = () => {
         if (mobileMedia.matches) renderMobile('auto');
-        else renderDesktop();
+        else {
+          disconnectObserver();
+          renderDesktop();
+        }
       };
 
       if (typeof mobileMedia.addEventListener === 'function') {
@@ -359,6 +401,7 @@
         resizeFrame = window.requestAnimationFrame(() => {
           measureCards();
           if (mobileMedia.matches) renderMobile('auto');
+          else disconnectObserver();
         });
       });
 
