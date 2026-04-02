@@ -50,6 +50,8 @@
       if (!cards.length) return;
 
       let currentIndex = 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
       const dots = document.createElement('div');
       dots.className = 'plan-carousel__dots';
 
@@ -93,6 +95,37 @@
         currentIndex = (currentIndex + 1) % cards.length;
         render();
       });
+
+      carousel.addEventListener(
+        'touchstart',
+        (event) => {
+          const touch = event.changedTouches[0];
+          if (!touch) return;
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+        },
+        { passive: true },
+      );
+
+      carousel.addEventListener(
+        'touchend',
+        (event) => {
+          const touch = event.changedTouches[0];
+          if (!touch) return;
+
+          const deltaX = touch.clientX - touchStartX;
+          const deltaY = touch.clientY - touchStartY;
+
+          if (Math.abs(deltaX) < 50 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+          if (deltaX < 0) currentIndex = (currentIndex + 1) % cards.length;
+          else currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+
+          render();
+        },
+        { passive: true },
+      );
+
       cards.forEach((card) => {
         card.addEventListener('mouseenter', () => {
           const hoveredIndex = cards.indexOf(card);
@@ -159,6 +192,8 @@
       if (items.length <= 1) return;
 
       let currentIndex = 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
       const controls = document.createElement('div');
       controls.className = 'gallery__controls';
 
@@ -213,6 +248,36 @@
         currentIndex = (currentIndex + 1) % items.length;
         render();
       });
+
+      gallery.addEventListener(
+        'touchstart',
+        (event) => {
+          const touch = event.changedTouches[0];
+          if (!touch) return;
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+        },
+        { passive: true },
+      );
+
+      gallery.addEventListener(
+        'touchend',
+        (event) => {
+          const touch = event.changedTouches[0];
+          if (!touch) return;
+
+          const deltaX = touch.clientX - touchStartX;
+          const deltaY = touch.clientY - touchStartY;
+
+          if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+          if (deltaX < 0) currentIndex = (currentIndex + 1) % items.length;
+          else currentIndex = (currentIndex - 1 + items.length) % items.length;
+
+          render();
+        },
+        { passive: true },
+      );
 
       render();
     });

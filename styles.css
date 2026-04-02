@@ -3929,6 +3929,7 @@ body{
 
 .gallery--pagination{
   display: block;
+  touch-action: pan-y;
 }
 
 .gallery--pagination .gallery__item{
@@ -4143,6 +4144,7 @@ body{
   padding: 22px 78px 34px;
   border-radius: 24px;
   background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  touch-action: pan-y;
 }
 
 .plan-carousel::before{
