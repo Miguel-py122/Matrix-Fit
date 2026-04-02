@@ -408,7 +408,13 @@
 
     galleries.forEach((gallery) => {
       const items = Array.from(gallery.querySelectorAll('.gallery__item'));
-      if (items.length <= 1) return;
+      if (items.length <= 1) {
+        items.forEach((item) => {
+          item.classList.add('is-active');
+          item.removeAttribute('hidden');
+        });
+        return;
+      }
 
       let currentIndex = 0;
       let touchStartX = 0;
