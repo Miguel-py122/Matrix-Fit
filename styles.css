@@ -7366,3 +7366,35 @@ body{
     line-height: 1;
   }
 }
+
+@media (max-width: 768px){
+  .page-pricing .plan-carousel,
+  .page-dailies .plan-carousel{
+    contain: layout paint;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants{
+    overscroll-behavior-x: contain;
+    will-change: scroll-position;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
+  .page-dailies .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
+    will-change: transform;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden;
+  }
+}

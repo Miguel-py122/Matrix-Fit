@@ -132,6 +132,9 @@
       let touchStartX = 0;
       let touchStartY = 0;
       let scrollFrame = 0;
+      let resizeFrame = 0;
+      let cardOffsets = [];
+      let currentCard = null;
 
       const dots = document.createElement('div');
       dots.className = 'plan-carousel__dots';
@@ -158,6 +161,19 @@
         dotButtons.forEach((button, index) => {
           button.classList.toggle('is-active', index === currentIndex);
         });
+      };
+
+      const measureCards = () => {
+        cardOffsets = cards.map((card) => card.offsetLeft);
+      };
+
+      const updateMobileCurrentCard = () => {
+        if (currentCard && currentCard !== cards[currentIndex]) {
+          currentCard.classList.remove('is-current');
+        }
+
+        currentCard = cards[currentIndex] || null;
+        currentCard?.classList.add('is-current');
       };
 
       const updateMobileArrows = () => {
@@ -195,29 +211,35 @@
       };
 
       const syncIndexFromScroll = () => {
+        if (!cardOffsets.length) measureCards();
+
+        const scrollLeft = track.scrollLeft;
         let closestIndex = 0;
         let smallestDistance = Number.POSITIVE_INFINITY;
 
-        cards.forEach((card, index) => {
-          const distance = Math.abs(card.offsetLeft - track.scrollLeft);
+        cardOffsets.forEach((offset, index) => {
+          const distance = Math.abs(offset - scrollLeft);
           if (distance < smallestDistance) {
             smallestDistance = distance;
             closestIndex = index;
           }
         });
 
+        if (closestIndex === currentIndex) return;
+
         currentIndex = closestIndex;
-        cards.forEach((card, index) => {
-          card.classList.toggle('is-current', index === currentIndex);
-        });
+        updateMobileCurrentCard();
         updateDots();
         updateMobileArrows();
       };
 
       const scrollToCard = (index, behavior = 'smooth') => {
         currentIndex = Math.max(0, Math.min(index, cards.length - 1));
-        track.scrollTo({ left: cards[currentIndex].offsetLeft, behavior });
-        syncIndexFromScroll();
+        if (!cardOffsets.length) measureCards();
+        updateMobileCurrentCard();
+        updateDots();
+        updateMobileArrows();
+        track.scrollTo({ left: cardOffsets[currentIndex] ?? 0, behavior });
       };
 
       const renderMobile = (behavior = 'auto') => {
@@ -225,6 +247,7 @@
         cards.forEach((card) => {
           card.classList.remove('is-prev', 'is-next', 'is-hidden');
         });
+        measureCards();
         scrollToCard(currentIndex, behavior);
       };
 
@@ -309,6 +332,17 @@
         { passive: true },
       );
 
+      if ('onscrollend' in window) {
+        track.addEventListener(
+          'scrollend',
+          () => {
+            if (!mobileMedia.matches) return;
+            syncIndexFromScroll();
+          },
+          { passive: true },
+        );
+      }
+
       const syncMode = () => {
         if (mobileMedia.matches) renderMobile('auto');
         else renderDesktop();
@@ -321,7 +355,11 @@
       }
 
       window.addEventListener('resize', () => {
-        if (mobileMedia.matches) renderMobile('auto');
+        window.cancelAnimationFrame(resizeFrame);
+        resizeFrame = window.requestAnimationFrame(() => {
+          measureCards();
+          if (mobileMedia.matches) renderMobile('auto');
+        });
       });
 
       syncMode();
