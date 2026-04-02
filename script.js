@@ -334,6 +334,16 @@
     if (!toggle || !nav) return;
 
     const isMenuOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+    let lastToggleTime = 0;
+
+    const toggleMenu = () => {
+      const now = Date.now();
+      if (now - lastToggleTime < 220) return;
+      lastToggleTime = now;
+
+      if (isMenuOpen()) closeMenu();
+      else openMenu();
+    };
 
     const closeMenu = () => {
       toggle.setAttribute('aria-expanded', 'false');
@@ -349,8 +359,24 @@
 
     toggle.addEventListener('click', (event) => {
       event.stopPropagation();
-      if (isMenuOpen()) closeMenu();
-      else openMenu();
+      toggleMenu();
+    });
+
+    toggle.addEventListener(
+      'touchend',
+      (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        toggleMenu();
+      },
+      { passive: false },
+    );
+
+    toggle.addEventListener('pointerup', (event) => {
+      if (event.pointerType !== 'touch') return;
+      event.preventDefault();
+      event.stopPropagation();
+      toggleMenu();
     });
 
     nav.addEventListener('click', (event) => {

@@ -6099,143 +6099,6 @@ body{
    Corrige menu e carrossel apenas no celular.
    ========================================================= */
 
-@media (max-width: 768px){
-  .topbar{
-    position: fixed;
-    left: 0;
-    right: 0;
-    z-index: 120;
-  }
-
-  body{
-    padding-top: 84px;
-  }
-
-  .topbar__inner{
-    grid-template-columns: minmax(0, 1fr) auto;
-    padding: 10px 0;
-  }
-
-  .btn--topbar{
-    display: none !important;
-  }
-
-  .tabs{
-    top: calc(100% + 8px);
-    right: 0;
-    left: 0;
-    padding: 16px;
-    border-radius: 16px;
-  }
-
-  .tabs.is-open{
-    display: grid;
-  }
-
-  .tab{
-    justify-content: center;
-    text-align: center;
-  }
-
-  .page-pricing .pricing-page__switch,
-  .page-dailies .pricing-page__switch{
-    width: 100%;
-    display: grid;
-    gap: 10px;
-    padding: 0;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-  }
-
-  .page-pricing .pricing-page__switch-link,
-  .page-dailies .pricing-page__switch-link{
-    width: 100%;
-    min-height: 50px;
-  }
-
-  .page-pricing .plan-carousel,
-  .page-dailies .plan-carousel{
-    padding: 8px 0 18px;
-    min-height: auto;
-    overflow: visible;
-  }
-
-  .page-pricing .plan-carousel__arrow,
-  .page-dailies .plan-carousel__arrow{
-    display: none;
-  }
-
-  .page-pricing .plan-carousel::before,
-  .page-pricing .plan-carousel::after,
-  .page-dailies .plan-carousel::before,
-  .page-dailies .plan-carousel::after{
-    display: none;
-  }
-
-  .page-pricing .pricing-cards--variants,
-  .page-dailies .pricing-cards--variants{
-    position: relative;
-    height: auto !important;
-    min-height: 0;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card--clean,
-  .page-dailies .pricing-cards--variants .pricing-card--clean{
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    width: 100% !important;
-    min-height: auto !important;
-    height: auto !important;
-    transform: none !important;
-    filter: none !important;
-    margin: 0;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
-    display: none !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current{
-    display: flex !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    z-index: 2;
-    box-shadow: 0 18px 42px rgba(0,0,0,.32);
-  }
-
-  .page-pricing .plan-carousel__dots,
-  .page-dailies .plan-carousel__dots{
-    position: relative;
-    left: auto;
-    bottom: auto;
-    transform: none;
-    width: fit-content;
-    margin: 14px auto 0;
-    padding: 6px 10px;
-    z-index: 4;
-  }
-
-  .page-pricing .pricing-card__price,
-  .page-dailies .pricing-card__price{
-    font-size: clamp(36px, 11vw, 50px) !important;
-  }
-
-  .page-pricing .pricing-card__plan,
-  .page-dailies .pricing-card__plan{
-    font-size: clamp(26px, 8vw, 34px) !important;
-  }
-}
-
 /* =========================================================
    Mobile Final Overrides
    Camada final para celular: preserva o desktop e consolida
@@ -6532,96 +6395,6 @@ body{
     min-height: 136px;
   }
 
-  /* Planos e diárias: uma coluna, sem esconder cards no mobile. */
-  .page-pricing .pricing-page__head,
-  .page-dailies .pricing-page__head{
-    margin-bottom: 18px;
-    gap: 12px;
-  }
-
-  .plan-group,
-  .pricing-banner{
-    gap: 14px;
-    padding: 18px;
-    border-radius: 22px;
-  }
-
-  .page-pricing .plan-carousel,
-  .page-dailies .plan-carousel{
-    padding: 0;
-    min-height: auto;
-    overflow: visible;
-  }
-
-  .page-pricing .plan-carousel__arrow,
-  .page-dailies .plan-carousel__arrow,
-  .page-pricing .plan-carousel__dots,
-  .page-dailies .plan-carousel__dots{
-    display: none !important;
-  }
-
-  .page-pricing .pricing-cards--variants,
-  .page-dailies .pricing-cards--variants{
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    height: auto !important;
-    min-height: 0;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card--clean,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
-  .page-dailies .pricing-cards--variants .pricing-card--clean,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
-    display: flex !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    width: 100% !important;
-    min-height: auto !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 22px 20px 20px !important;
-    transform: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-    pointer-events: auto !important;
-    z-index: auto !important;
-    border-radius: 24px;
-    box-shadow: 0 18px 42px rgba(0,0,0,.26);
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card__price,
-  .page-dailies .pricing-cards--variants .pricing-card__price{
-    font-size: clamp(34px, 10vw, 46px) !important;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card__subtitle,
-  .page-dailies .pricing-cards--variants .pricing-card__subtitle,
-  .page-pricing .pricing-cards--variants .pricing-card__features li,
-  .page-dailies .pricing-cards--variants .pricing-card__features li{
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card__actions,
-  .page-dailies .pricing-cards--variants .pricing-card__actions{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .page-pricing .pricing-banner .btn,
-  .page-dailies .pricing-banner .btn{
-    width: 100%;
-  }
-
   /* Footer e áreas finais: leitura limpa e bom respiro no scroll. */
   .footer,
   .page-home .footer,
@@ -6643,153 +6416,6 @@ body{
 }
 
 /* =========================================================
-   Pricing Carousel Mobile Fix
-   Restaura a navegacao entre planos no celular com setas,
-   scroll horizontal e indicador visual sem afetar desktop.
-   ========================================================= */
-
-@media (max-width: 768px){
-  .page-pricing .pricing-page__switch,
-  .page-dailies .pricing-page__switch{
-    display: flex !important;
-    flex-wrap: nowrap;
-    gap: 10px;
-    overflow-x: auto;
-    padding: 4px 2px 2px;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .page-pricing .pricing-page__switch::-webkit-scrollbar,
-  .page-dailies .pricing-page__switch::-webkit-scrollbar,
-  .page-pricing .pricing-cards--variants::-webkit-scrollbar,
-  .page-dailies .pricing-cards--variants::-webkit-scrollbar{
-    display: none;
-  }
-
-  .page-pricing .pricing-page__switch-link,
-  .page-dailies .pricing-page__switch-link{
-    flex: 0 0 auto;
-    width: auto !important;
-    min-width: max-content;
-    padding-inline: 16px;
-    scroll-snap-align: start;
-  }
-
-  .page-pricing .plan-carousel,
-  .page-dailies .plan-carousel{
-    position: relative;
-    padding: 0 0 34px;
-    min-height: auto;
-    overflow: visible;
-  }
-
-  .page-pricing .plan-carousel::before,
-  .page-pricing .plan-carousel::after,
-  .page-dailies .plan-carousel::before,
-  .page-dailies .plan-carousel::after{
-    display: none !important;
-  }
-
-  .page-pricing .plan-carousel__arrow,
-  .page-dailies .plan-carousel__arrow{
-    display: grid !important;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    top: calc(50% - 10px);
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.10);
-    background: rgba(12,14,16,.92);
-    box-shadow: 0 12px 24px rgba(0,0,0,.26);
-    font-size: 28px;
-    line-height: 1;
-  }
-
-  .page-pricing .plan-carousel__arrow--prev,
-  .page-dailies .plan-carousel__arrow--prev{
-    left: -4px;
-  }
-
-  .page-pricing .plan-carousel__arrow--next,
-  .page-dailies .plan-carousel__arrow--next{
-    right: -4px;
-  }
-
-  .page-pricing .plan-carousel__arrow[disabled],
-  .page-dailies .plan-carousel__arrow[disabled]{
-    opacity: .36;
-    pointer-events: none;
-    transform: translateY(-50%);
-  }
-
-  .page-pricing .pricing-cards--variants,
-  .page-dailies .pricing-cards--variants{
-    display: flex !important;
-    flex-wrap: nowrap;
-    gap: 16px;
-    height: auto !important;
-    min-height: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 4px 6px 16px;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card--clean,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
-  .page-dailies .pricing-cards--variants .pricing-card--clean,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
-    display: flex !important;
-    flex: 0 0 calc(100% - 12px);
-    width: calc(100% - 12px) !important;
-    max-width: calc(100% - 12px);
-    min-height: auto !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 22px 20px 20px !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-    pointer-events: auto !important;
-    z-index: auto !important;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-  }
-
-  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
-  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current{
-    border-color: rgba(255,122,50,.28);
-    box-shadow: 0 22px 42px rgba(0,0,0,.28), 0 0 0 1px rgba(255,122,50,.10);
-  }
-
-  .page-pricing .plan-carousel__dots,
-  .page-dailies .plan-carousel__dots{
-    position: relative;
-    left: auto;
-    bottom: auto;
-    transform: none;
-    display: flex !important;
-    justify-content: center;
-    width: fit-content;
-    margin: 12px auto 0;
-    z-index: 4;
-  }
-}
-
-/* =========================================================
    Mobile Premium Rescue
    Camada final para celular: corrige cards e refina o menu
    sem alterar o comportamento desktop.
@@ -6807,12 +6433,19 @@ body{
   .page-dailies,
   .page-pricing .main,
   .page-dailies .main,
-  .page-pricing .container,
-  .page-dailies .container,
   .page-pricing .plan-groups,
   .page-dailies .plan-groups{
     max-width: 100%;
     overflow-x: hidden;
+  }
+
+  .page-pricing .topbar,
+  .page-dailies .topbar,
+  .page-pricing .topbar .container,
+  .page-dailies .topbar .container,
+  .page-pricing .topbar__inner,
+  .page-dailies .topbar__inner{
+    overflow: visible !important;
   }
 
   .topbar{
@@ -7058,6 +6691,7 @@ body{
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    contain: layout paint;
   }
 
   .page-pricing .pricing-cards--variants::-webkit-scrollbar,
@@ -7097,6 +6731,7 @@ body{
     box-sizing: border-box;
     scroll-snap-align: start !important;
     scroll-snap-stop: always;
+    contain: layout paint style;
   }
 
   .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
@@ -7260,9 +6895,28 @@ body{
     background: rgba(255,255,255,.03);
     border: 1px solid rgba(255,255,255,.05);
   }
+
+  .topbar,
+  .tabs,
+  .topbar__toggle,
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean{
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
 }
 
 @media (max-width: 380px){
+  .page-pricing .plan-carousel__arrow,
+  .page-dailies .plan-carousel__arrow{
+    display: none !important;
+  }
+
+  .page-pricing .plan-carousel,
+  .page-dailies .plan-carousel{
+    padding-bottom: 12px !important;
+  }
+
   .page-pricing .plan-group,
   .page-dailies .plan-group{
     padding: 14px 10px 16px;
@@ -7317,5 +6971,26 @@ body{
   .page-dailies .pricing-cards--variants .btn--pricing-secondary{
     min-height: 42px;
     font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .topbar,
+  .tabs,
+  .topbar__toggle,
+  .topbar__toggle span,
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants,
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean,
+  .page-pricing .plan-carousel__arrow,
+  .page-dailies .plan-carousel__arrow{
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants{
+    scroll-behavior: auto;
   }
 }
