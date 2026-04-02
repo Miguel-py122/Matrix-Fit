@@ -333,6 +333,8 @@
     const nav = document.querySelector('.tabs');
     if (!toggle || !nav) return;
 
+    const isMenuOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
     const closeMenu = () => {
       toggle.setAttribute('aria-expanded', 'false');
       nav.classList.remove('is-open');
@@ -345,14 +347,24 @@
       document.body.classList.add('is-mobile-nav-open');
     };
 
-    toggle.addEventListener('click', () => {
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      if (expanded) closeMenu();
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (isMenuOpen()) closeMenu();
       else openMenu();
+    });
+
+    nav.addEventListener('click', (event) => {
+      event.stopPropagation();
     });
 
     nav.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!isMenuOpen()) return;
+      if (event.target instanceof Node && (toggle.contains(event.target) || nav.contains(event.target))) return;
+      closeMenu();
     });
 
     window.addEventListener('resize', () => {

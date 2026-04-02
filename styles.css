@@ -6822,9 +6822,10 @@ body{
 
   .topbar__toggle{
     position: relative;
+    display: block;
     width: 56px;
     height: 56px;
-    gap: 6px;
+    padding: 0;
     border: 1px solid rgba(255,255,255,.1);
     border-radius: 18px;
     background:
@@ -6848,13 +6849,28 @@ body{
   }
 
   .topbar__toggle span{
+    position: absolute;
+    left: 50%;
     width: 24px;
     height: 2.5px;
     border-radius: 999px;
     background: linear-gradient(90deg, #ffffff, #f5f5f5);
     box-shadow: 0 0 12px rgba(255,255,255,.08);
     transform-origin: center;
-    transition: transform .26s ease, opacity .2s ease, background .26s ease;
+    transform: translateX(-50%);
+    transition: transform .26s ease, opacity .2s ease, background .26s ease, top .26s ease;
+  }
+
+  .topbar__toggle span:nth-child(1){
+    top: 18px;
+  }
+
+  .topbar__toggle span:nth-child(2){
+    top: 26.5px;
+  }
+
+  .topbar__toggle span:nth-child(3){
+    top: 35px;
   }
 
   .topbar__toggle[aria-expanded="true"]{
@@ -6865,7 +6881,8 @@ body{
   }
 
   .topbar__toggle[aria-expanded="true"] span:nth-child(1){
-    transform: translateY(8.5px) rotate(45deg);
+    top: 26.5px;
+    transform: translateX(-50%) rotate(45deg);
   }
 
   .topbar__toggle[aria-expanded="true"] span:nth-child(2){
@@ -6873,7 +6890,8 @@ body{
   }
 
   .topbar__toggle[aria-expanded="true"] span:nth-child(3){
-    transform: translateY(-8.5px) rotate(-45deg);
+    top: 26.5px;
+    transform: translateX(-50%) rotate(-45deg);
   }
 
   .tabs{
@@ -6922,7 +6940,7 @@ body{
   .page-pricing .plan-group,
   .page-dailies .plan-group{
     padding: 18px 14px 20px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .page-pricing .plan-group__head,
@@ -6934,28 +6952,67 @@ body{
 
   .page-pricing .plan-carousel,
   .page-dailies .plan-carousel{
-    padding: 0 !important;
+    position: relative;
+    padding: 4px 0 30px !important;
     overflow: visible !important;
   }
 
   .page-pricing .plan-carousel__arrow,
-  .page-dailies .plan-carousel__arrow,
-  .page-pricing .plan-carousel__dots,
-  .page-dailies .plan-carousel__dots{
-    display: none !important;
+  .page-dailies .plan-carousel__arrow{
+    display: grid !important;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.1);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+      rgba(11, 13, 16, .94);
+    box-shadow: 0 14px 28px rgba(0,0,0,.28);
+    font-size: 28px;
+    line-height: 1;
+    z-index: 5;
+  }
+
+  .page-pricing .plan-carousel__arrow--prev,
+  .page-dailies .plan-carousel__arrow--prev{
+    left: -10px;
+  }
+
+  .page-pricing .plan-carousel__arrow--next,
+  .page-dailies .plan-carousel__arrow--next{
+    right: -10px;
+  }
+
+  .page-pricing .plan-carousel__arrow[disabled],
+  .page-dailies .plan-carousel__arrow[disabled]{
+    opacity: .34;
+    pointer-events: none;
+    box-shadow: none;
   }
 
   .page-pricing .pricing-cards--variants,
   .page-dailies .pricing-cards--variants{
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 18px;
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 14px;
     height: auto !important;
     min-height: 0 !important;
-    overflow: visible !important;
-    padding: 0 !important;
-    scroll-snap-type: none !important;
-    scroll-behavior: auto;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 4px 4px 18px !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding-inline: 4px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .page-pricing .pricing-cards--variants::-webkit-scrollbar,
+  .page-dailies .pricing-cards--variants::-webkit-scrollbar{
+    display: none;
   }
 
   .page-pricing .pricing-cards--variants .pricing-card--clean,
@@ -6969,9 +7026,9 @@ body{
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
     display: flex !important;
-    flex: 1 1 auto;
+    flex: 0 0 100%;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
     min-width: 0 !important;
     min-height: auto !important;
     height: auto !important;
@@ -6987,8 +7044,16 @@ body{
     z-index: auto !important;
     border-radius: 24px;
     box-shadow: 0 18px 42px rgba(0,0,0,.26);
-    scroll-snap-align: none !important;
-    scroll-snap-stop: normal;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current{
+    border-color: rgba(var(--card-accent-rgb), .32);
+    box-shadow:
+      0 22px 46px rgba(0,0,0,.3),
+      0 0 0 1px rgba(var(--card-accent-rgb), .16);
   }
 
   .page-pricing .pricing-cards--variants .pricing-card__badge-row,
@@ -7004,7 +7069,7 @@ body{
   .page-dailies .pricing-cards--variants .pricing-card__hero{
     display: grid;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .page-pricing .pricing-cards--variants .pricing-card__icon,
@@ -7076,7 +7141,8 @@ body{
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
-    margin-top: 6px;
+    margin-top: auto;
+    padding-top: 6px;
   }
 
   .page-pricing .pricing-cards--variants .btn--pricing,
@@ -7096,5 +7162,21 @@ body{
   .page-pricing .pricing-cards--variants .btn--pricing-secondary,
   .page-dailies .pricing-cards--variants .btn--pricing-secondary{
     color: rgba(255,255,255,.9);
+  }
+
+  .page-pricing .plan-carousel__dots,
+  .page-dailies .plan-carousel__dots{
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    display: flex !important;
+    justify-content: center;
+    width: fit-content;
+    margin: 10px auto 0;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.05);
   }
 }
