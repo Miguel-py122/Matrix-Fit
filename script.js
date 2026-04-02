@@ -1,7 +1,81 @@
 (() => {
+  const whatsappPhone = '5577999202077';
   const yearEl = document.getElementById('ano');
   const pricingModeButtons = Array.from(document.querySelectorAll('[data-pricing-mode]'));
   const pricingSections = Array.from(document.querySelectorAll('[data-pricing-section]'));
+
+  function isMobileDevice() {
+    if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
+      return navigator.userAgentData.mobile;
+    }
+
+    return /Android|iPhone|iPad|iPod|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  function buildWhatsAppTargets(message) {
+    const encodedMessage = encodeURIComponent(message);
+    return {
+      app: `whatsapp://send?phone=${whatsappPhone}&text=${encodedMessage}`,
+      web: `https://web.whatsapp.com/send?phone=${whatsappPhone}&text=${encodedMessage}`,
+      universal: `https://wa.me/${whatsappPhone}?text=${encodedMessage}`,
+    };
+  }
+
+  function openWhatsApp(message) {
+    const targets = buildWhatsAppTargets(message);
+    let fallbackTimer = 0;
+
+    const clearFallback = () => {
+      if (fallbackTimer) {
+        window.clearTimeout(fallbackTimer);
+        fallbackTimer = 0;
+      }
+
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pagehide', clearFallback);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') clearFallback();
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pagehide', clearFallback, { once: true });
+
+    if (isMobileDevice()) {
+      fallbackTimer = window.setTimeout(() => {
+        window.location.assign(targets.universal);
+      }, 700);
+
+      window.location.assign(targets.app);
+      return;
+    }
+
+    fallbackTimer = window.setTimeout(() => {
+      window.location.assign(targets.universal);
+    }, 900);
+
+    window.location.assign(targets.web);
+  }
+
+  function getPricingCardDetails(button) {
+    const card = button.closest('.pricing-card');
+    if (!card) return null;
+
+    const plano = card.querySelector('.pricing-card__plan')?.textContent?.trim() || button.dataset.plano?.trim() || '';
+    const preco = card.querySelector('.pricing-card__price')?.textContent?.trim() || '';
+    const condicao = card.querySelector('.pricing-card__price-suffix')?.textContent?.trim() || '';
+    const destaque = card.querySelector('.pricing-card__badge')?.textContent?.trim() || '';
+    const frequencia = card.querySelector('.pricing-card__meta-chip')?.textContent?.trim() || '';
+
+    return {
+      plano,
+      preco,
+      condicao,
+      destaque,
+      frequencia,
+    };
+  }
 
   function applyImageFallbacks() {
     const imgs = Array.from(document.querySelectorAll('img[data-fallback]'));
@@ -45,13 +119,20 @@
     const carousels = Array.from(document.querySelectorAll('.plan-carousel'));
     if (!carousels.length) return;
 
+    const mobileMedia = window.matchMedia('(max-width: 768px)');
+
     carousels.forEach((carousel) => {
-      const cards = Array.from(carousel.querySelectorAll('.pricing-cards--variants .pricing-card'));
-      if (!cards.length) return;
+      const track = carousel.querySelector('.pricing-cards--variants');
+      const cards = track ? Array.from(track.querySelectorAll('.pricing-card')) : [];
+      const prevButton = carousel.querySelector('.plan-carousel__arrow--prev');
+      const nextButton = carousel.querySelector('.plan-carousel__arrow--next');
+      if (!track || !cards.length) return;
 
       let currentIndex = 0;
       let touchStartX = 0;
       let touchStartY = 0;
+      let scrollFrame = 0;
+
       const dots = document.createElement('div');
       dots.className = 'plan-carousel__dots';
 
@@ -61,8 +142,11 @@
         button.className = 'plan-carousel__dot';
         button.setAttribute('aria-label', `Ir para ${card.querySelector('.pricing-card__plan')?.textContent || `plano ${index + 1}`}`);
         button.addEventListener('click', () => {
-          currentIndex = index;
-          render();
+          if (mobileMedia.matches) scrollToCard(index);
+          else {
+            currentIndex = index;
+            renderDesktop();
+          }
         });
         dots.appendChild(button);
         return button;
@@ -70,11 +154,33 @@
 
       carousel.appendChild(dots);
 
-      const render = () => {
+      const updateDots = () => {
+        dotButtons.forEach((button, index) => {
+          button.classList.toggle('is-active', index === currentIndex);
+        });
+      };
+
+      const updateMobileArrows = () => {
+        if (!mobileMedia.matches) {
+          prevButton?.removeAttribute('disabled');
+          nextButton?.removeAttribute('disabled');
+          return;
+        }
+
+        const atStart = currentIndex <= 0;
+        const atEnd = currentIndex >= cards.length - 1;
+        prevButton?.toggleAttribute('disabled', atStart);
+        nextButton?.toggleAttribute('disabled', atEnd);
+        prevButton?.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+        nextButton?.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+      };
+
+      const renderDesktop = () => {
         const total = cards.length;
         const prevIndex = (currentIndex - 1 + total) % total;
         const nextIndex = (currentIndex + 1) % total;
 
+        carousel.classList.remove('is-mobile-carousel');
         cards.forEach((card, index) => {
           card.classList.remove('is-current', 'is-prev', 'is-next', 'is-hidden');
 
@@ -82,23 +188,70 @@
           else if (index === prevIndex) card.classList.add('is-prev');
           else if (index === nextIndex) card.classList.add('is-next');
           else card.classList.add('is-hidden');
-
-          dotButtons[index]?.classList.toggle('is-active', index === currentIndex);
         });
+
+        updateDots();
+        updateMobileArrows();
       };
 
-      carousel.querySelector('.plan-carousel__arrow--prev')?.addEventListener('click', () => {
+      const syncIndexFromScroll = () => {
+        let closestIndex = 0;
+        let smallestDistance = Number.POSITIVE_INFINITY;
+
+        cards.forEach((card, index) => {
+          const distance = Math.abs(card.offsetLeft - track.scrollLeft);
+          if (distance < smallestDistance) {
+            smallestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        currentIndex = closestIndex;
+        cards.forEach((card, index) => {
+          card.classList.toggle('is-current', index === currentIndex);
+        });
+        updateDots();
+        updateMobileArrows();
+      };
+
+      const scrollToCard = (index, behavior = 'smooth') => {
+        currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+        track.scrollTo({ left: cards[currentIndex].offsetLeft, behavior });
+        syncIndexFromScroll();
+      };
+
+      const renderMobile = (behavior = 'auto') => {
+        carousel.classList.add('is-mobile-carousel');
+        cards.forEach((card) => {
+          card.classList.remove('is-prev', 'is-next', 'is-hidden');
+        });
+        scrollToCard(currentIndex, behavior);
+      };
+
+      prevButton?.addEventListener('click', () => {
+        if (mobileMedia.matches) {
+          scrollToCard(currentIndex - 1);
+          return;
+        }
+
         currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-        render();
+        renderDesktop();
       });
-      carousel.querySelector('.plan-carousel__arrow--next')?.addEventListener('click', () => {
+
+      nextButton?.addEventListener('click', () => {
+        if (mobileMedia.matches) {
+          scrollToCard(currentIndex + 1);
+          return;
+        }
+
         currentIndex = (currentIndex + 1) % cards.length;
-        render();
+        renderDesktop();
       });
 
       carousel.addEventListener(
         'touchstart',
         (event) => {
+          if (mobileMedia.matches) return;
           const touch = event.changedTouches[0];
           if (!touch) return;
           touchStartX = touch.clientX;
@@ -110,6 +263,7 @@
       carousel.addEventListener(
         'touchend',
         (event) => {
+          if (mobileMedia.matches) return;
           const touch = event.changedTouches[0];
           if (!touch) return;
 
@@ -121,29 +275,56 @@
           if (deltaX < 0) currentIndex = (currentIndex + 1) % cards.length;
           else currentIndex = (currentIndex - 1 + cards.length) % cards.length;
 
-          render();
+          renderDesktop();
         },
         { passive: true },
       );
 
-      cards.forEach((card) => {
+      cards.forEach((card, index) => {
         card.addEventListener('mouseenter', () => {
-          const hoveredIndex = cards.indexOf(card);
-          if (hoveredIndex >= 0) {
-            currentIndex = hoveredIndex;
-            render();
-          }
+          if (mobileMedia.matches) return;
+          currentIndex = index;
+          renderDesktop();
         });
+
         card.addEventListener('click', () => {
-          const clickedIndex = cards.indexOf(card);
-          if (clickedIndex >= 0) {
-            currentIndex = clickedIndex;
-            render();
+          if (mobileMedia.matches) {
+            currentIndex = index;
+            syncIndexFromScroll();
+            return;
           }
+
+          currentIndex = index;
+          renderDesktop();
         });
       });
 
-      render();
+      track.addEventListener(
+        'scroll',
+        () => {
+          if (!mobileMedia.matches) return;
+          window.cancelAnimationFrame(scrollFrame);
+          scrollFrame = window.requestAnimationFrame(syncIndexFromScroll);
+        },
+        { passive: true },
+      );
+
+      const syncMode = () => {
+        if (mobileMedia.matches) renderMobile('auto');
+        else renderDesktop();
+      };
+
+      if (typeof mobileMedia.addEventListener === 'function') {
+        mobileMedia.addEventListener('change', syncMode);
+      } else if (typeof mobileMedia.addListener === 'function') {
+        mobileMedia.addListener(syncMode);
+      }
+
+      window.addEventListener('resize', () => {
+        if (mobileMedia.matches) renderMobile('auto');
+      });
+
+      syncMode();
     });
   }
 
@@ -287,8 +468,6 @@
     const forms = Array.from(document.querySelectorAll('[data-contact-form]'));
     if (!forms.length) return;
 
-    const whatsappBaseUrl = 'https://wa.me/5577999202077';
-
     forms.forEach((form) => {
       const submitButton = form.querySelector('.contact-form__submit');
       const status = form.querySelector('.contact-form__status');
@@ -352,17 +531,14 @@
         const formData = new FormData(form);
         const nome = String(formData.get('nome') || '').trim();
         const mensagem = String(formData.get('mensagem') || '').trim();
-        const pageName = document.title || 'MatrixFit';
-        const pagePath = window.location.pathname.split('/').pop() || 'index.html';
         const text = [
-          'Oi MatrixFit! Quero falar com a equipe.',
+          'Olá! Vim pelo site e quero mais informações.',
           '',
-          `Pagina de origem: ${pageName} (${pagePath})`,
           `Nome: ${nome}`,
+          '',
           'Mensagem:',
           mensagem,
         ].join('\n');
-        const whatsappUrl = `${whatsappBaseUrl}?text=${encodeURIComponent(text)}`;
 
         if (submitButton) {
           submitButton.disabled = true;
@@ -375,9 +551,85 @@
             submitButton.classList.remove('is-loading');
           }
 
-          setStatus('success', 'Abrindo o WhatsApp nesta mesma tela.');
-          window.location.href = whatsappUrl;
+          form.reset();
+          fields.forEach((field) => {
+            field.classList.remove('is-invalid');
+            field.querySelector('.field__input')?.setAttribute('aria-invalid', 'false');
+          });
+
+          setStatus('success', 'Abrindo o WhatsApp com sua mensagem pronta.');
+          openWhatsApp(text);
         }, 450);
+      });
+    });
+  }
+
+  function initPricingWhatsAppButtons() {
+    const pricingButtons = Array.from(document.querySelectorAll('.btn--pricing[data-plano]'));
+    if (!pricingButtons.length) return;
+
+    const mensagens = {
+      mensal: ({ plano, preco, condicao, destaque, frequencia }) => {
+        const detalhes = [preco, condicao].filter(Boolean).join(' ');
+        const extras = [destaque, frequencia].filter(Boolean).join(' | ');
+        return [
+          `Olá! Quero fechar o plano ${plano}.`,
+          detalhes ? `Valor anunciado: ${detalhes}.` : '',
+          extras ? `Categoria: ${extras}.` : '',
+          'Pode me passar o próximo passo?',
+        ].filter(Boolean).join(' ');
+      },
+      trimestral: ({ plano, preco, condicao, destaque, frequencia }) => {
+        const detalhes = [preco, condicao].filter(Boolean).join(' ');
+        const extras = [destaque, frequencia].filter(Boolean).join(' | ');
+        return [
+          `Olá! Tenho interesse no plano ${plano}.`,
+          detalhes ? `Condição vista no site: ${detalhes}.` : '',
+          extras ? `Perfil: ${extras}.` : '',
+          'Pode me enviar as condições para contratar?',
+        ].filter(Boolean).join(' ');
+      },
+      diario: ({ plano, preco, condicao, destaque, frequencia }) => {
+        const detalhes = [preco, condicao].filter(Boolean).join(' ');
+        const extras = [destaque, frequencia].filter(Boolean).join(' | ');
+        return [
+          `Olá! Quero reservar o ${plano}.`,
+          detalhes ? `Valor: ${detalhes}.` : '',
+          extras ? `Opção: ${extras}.` : '',
+          'Pode me orientar para confirmar?',
+        ].filter(Boolean).join(' ');
+      },
+    };
+
+    const getPlanoTipo = (plano) => {
+      const planoNormalizado = plano.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      if (planoNormalizado.includes('diaria') || planoNormalizado.includes('pacote')) return 'diario';
+      if (planoNormalizado.includes('trimestral')) return 'trimestral';
+      return 'mensal';
+    };
+
+    pricingButtons.forEach((button) => {
+      button.style.cursor = 'pointer';
+
+      button.addEventListener('click', (event) => {
+        const plano = button.dataset.plano?.trim();
+        if (!plano) return;
+
+        event.preventDefault();
+
+        const tipo = getPlanoTipo(plano);
+        const detalhesPlano = getPricingCardDetails(button) || {
+          plano,
+          preco: '',
+          condicao: '',
+          destaque: '',
+          frequencia: '',
+        };
+        const mensagem = mensagens[tipo]?.(detalhesPlano) || `Olá! Tenho interesse no plano ${plano}. Pode me passar os detalhes para contratação?`;
+
+        button.classList.add('is-pressed');
+        window.setTimeout(() => button.classList.remove('is-pressed'), 180);
+        openWhatsApp(mensagem);
       });
     });
   }
@@ -398,5 +650,6 @@
   initPaginatedGalleries();
   initPlanCarousels();
   initContactForms();
+  initPricingWhatsAppButtons();
   setPricingMode('mensal');
 })();

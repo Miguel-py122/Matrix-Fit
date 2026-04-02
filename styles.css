@@ -4168,15 +4168,15 @@ body{
 }
 
 .pricing-cards--variants{
-  height: 640px;
+  height: 720px;
 }
 
 .pricing-cards--variants .pricing-card--clean{
   top: 18px;
-  width: min(440px, calc(100% - 64px));
-  min-height: 560px;
-  height: 560px;
-  padding: 28px 28px 24px;
+  width: min(500px, calc(100% - 96px));
+  min-height: 628px;
+  height: 628px;
+  padding: 32px 30px 28px;
   border-radius: 24px;
   border: 1px solid rgba(255,255,255,.08);
   background:
@@ -4201,20 +4201,24 @@ body{
 }
 
 .pricing-cards--variants .pricing-card--clean.is-current{
+  transform: translateX(-50%) scale(1.04);
+  filter: saturate(1.02) blur(0);
   border-color: rgba(250,204,21,.24);
   box-shadow: 0 30px 70px rgba(0,0,0,.48);
 }
 
 .pricing-cards--variants .pricing-card--clean.is-prev{
-  transform: translateX(calc(-50% - 300px)) scale(.8);
+  transform: translateX(calc(-50% - 332px)) scale(.76);
+  filter: saturate(.72) blur(1.4px);
 }
 
 .pricing-cards--variants .pricing-card--clean.is-next{
-  transform: translateX(calc(-50% + 300px)) scale(.8);
+  transform: translateX(calc(-50% + 332px)) scale(.76);
+  filter: saturate(.72) blur(1.4px);
 }
 
 .pricing-cards--variants .pricing-card__top{
-  min-height: 90px;
+  min-height: 108px;
 }
 
 .pricing-cards--variants .pricing-card__plan{
@@ -4259,6 +4263,12 @@ body{
 
 .pricing-card__actions{
   gap: 10px;
+  padding-top: 6px;
+}
+
+.pricing-cards--variants .btn--pricing,
+.pricing-cards--variants .btn--pricing-secondary{
+  min-height: 54px;
 }
 
 .page-pricing .btn--pricing,
@@ -4285,6 +4295,38 @@ body{
 
 .plan-carousel__dot.is-active{
   background: linear-gradient(90deg, var(--site-red), var(--site-gold));
+}
+
+/* Cards de diarias: possuem texto adicional, então precisam de mais altura. */
+.page-dailies .pricing-cards--variants{
+  height: 780px;
+}
+
+.page-dailies .pricing-cards--variants .pricing-card--clean{
+  min-height: 688px;
+  height: 688px;
+  padding-bottom: 30px;
+}
+
+.page-dailies .pricing-cards--variants .pricing-card__top{
+  min-height: 122px;
+}
+
+.page-dailies .pricing-cards--variants .daily-card__text{
+  margin: 2px 0 0;
+  padding: 14px 14px 13px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.035);
+}
+
+.page-dailies .pricing-cards--variants .pricing-card__features{
+  gap: 10px;
+}
+
+.page-dailies .pricing-cards--variants .pricing-card__actions{
+  margin-top: auto;
+  padding-top: 10px;
 }
 
 /* Animações leves para dar refinamento sem exagero. */
@@ -4338,21 +4380,34 @@ body{
   }
 
   .pricing-cards--variants{
-    height: 600px;
+    height: 668px;
   }
 
   .pricing-cards--variants .pricing-card--clean{
-    width: min(410px, calc(100% - 40px));
-    min-height: 530px;
-    height: 530px;
+    width: min(452px, calc(100% - 44px));
+    min-height: 586px;
+    height: 586px;
   }
 
   .pricing-cards--variants .pricing-card--clean.is-prev{
-    transform: translateX(calc(-50% - 220px)) scale(.77);
+    transform: translateX(calc(-50% - 246px)) scale(.77);
   }
 
   .pricing-cards--variants .pricing-card--clean.is-next{
-    transform: translateX(calc(-50% + 220px)) scale(.77);
+    transform: translateX(calc(-50% + 246px)) scale(.77);
+  }
+
+  .page-dailies .pricing-cards--variants{
+    height: 720px;
+  }
+
+  .page-dailies .pricing-cards--variants .pricing-card--clean{
+    min-height: 632px;
+    height: 632px;
+  }
+
+  .page-dailies .pricing-cards--variants .pricing-card__top{
+    min-height: 116px;
   }
 }
 
@@ -4678,6 +4733,12 @@ body{
   transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background .3s ease;
 }
 
+.page-pricing .pricing-cards--variants .btn--pricing.is-pressed,
+.page-dailies .pricing-cards--variants .btn--pricing.is-pressed{
+  transform: translateY(0) scale(.985);
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
+}
+
 .page-pricing .pricing-cards--variants .btn--pricing::before,
 .page-dailies .pricing-cards--variants .btn--pricing::before{
   content: "";
@@ -4739,6 +4800,8 @@ body{
 
 .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
 .page-dailies .pricing-cards--variants .pricing-card--clean.is-current{
+  transform: translateX(-50%) scale(1.04);
+  filter: saturate(1.02) blur(0);
   border-color: rgba(var(--card-accent-rgb), .3);
   box-shadow:
     0 32px 84px rgba(0,0,0,.56),
@@ -4758,35 +4821,38 @@ body{
 .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
 .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
 .page-dailies .pricing-cards--variants .pricing-card--clean.is-next{
-  opacity: .82;
+  opacity: .9;
+  filter: saturate(.74) blur(1.4px);
 }
 
 @media (hover: hover) and (min-width: 781px){
   .page-pricing .pricing-cards--variants .pricing-card--clean.is-current:hover,
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-current:hover{
-    transform: translateX(-50%) scale(1.05);
+    transform: translateX(-50%) scale(1.06);
   }
 
   .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev:hover,
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev:hover{
-    transform: translateX(calc(-50% - 300px)) scale(.84);
+    transform: translateX(calc(-50% - 332px)) scale(.79);
+    filter: saturate(.82) blur(.8px);
   }
 
   .page-pricing .pricing-cards--variants .pricing-card--clean.is-next:hover,
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-next:hover{
-    transform: translateX(calc(-50% + 300px)) scale(.84);
+    transform: translateX(calc(-50% + 332px)) scale(.79);
+    filter: saturate(.82) blur(.8px);
   }
 }
 
 @media (max-width: 1080px) and (min-width: 781px){
   .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev:hover,
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev:hover{
-    transform: translateX(calc(-50% - 220px)) scale(.81);
+    transform: translateX(calc(-50% - 246px)) scale(.79);
   }
 
   .page-pricing .pricing-cards--variants .pricing-card--clean.is-next:hover,
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-next:hover{
-    transform: translateX(calc(-50% + 220px)) scale(.81);
+    transform: translateX(calc(-50% + 246px)) scale(.79);
   }
 }
 
@@ -6573,5 +6639,152 @@ body{
     display: inline-flex;
     min-height: 44px;
     align-items: center;
+  }
+}
+
+/* =========================================================
+   Pricing Carousel Mobile Fix
+   Restaura a navegacao entre planos no celular com setas,
+   scroll horizontal e indicador visual sem afetar desktop.
+   ========================================================= */
+
+@media (max-width: 768px){
+  .page-pricing .pricing-page__switch,
+  .page-dailies .pricing-page__switch{
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 4px 2px 2px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .page-pricing .pricing-page__switch::-webkit-scrollbar,
+  .page-dailies .pricing-page__switch::-webkit-scrollbar,
+  .page-pricing .pricing-cards--variants::-webkit-scrollbar,
+  .page-dailies .pricing-cards--variants::-webkit-scrollbar{
+    display: none;
+  }
+
+  .page-pricing .pricing-page__switch-link,
+  .page-dailies .pricing-page__switch-link{
+    flex: 0 0 auto;
+    width: auto !important;
+    min-width: max-content;
+    padding-inline: 16px;
+    scroll-snap-align: start;
+  }
+
+  .page-pricing .plan-carousel,
+  .page-dailies .plan-carousel{
+    position: relative;
+    padding: 0 0 34px;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .page-pricing .plan-carousel::before,
+  .page-pricing .plan-carousel::after,
+  .page-dailies .plan-carousel::before,
+  .page-dailies .plan-carousel::after{
+    display: none !important;
+  }
+
+  .page-pricing .plan-carousel__arrow,
+  .page-dailies .plan-carousel__arrow{
+    display: grid !important;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    top: calc(50% - 10px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(12,14,16,.92);
+    box-shadow: 0 12px 24px rgba(0,0,0,.26);
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .page-pricing .plan-carousel__arrow--prev,
+  .page-dailies .plan-carousel__arrow--prev{
+    left: -4px;
+  }
+
+  .page-pricing .plan-carousel__arrow--next,
+  .page-dailies .plan-carousel__arrow--next{
+    right: -4px;
+  }
+
+  .page-pricing .plan-carousel__arrow[disabled],
+  .page-dailies .plan-carousel__arrow[disabled]{
+    opacity: .36;
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants{
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 16px;
+    height: auto !important;
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 6px 16px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
+  .page-dailies .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
+    display: flex !important;
+    flex: 0 0 calc(100% - 12px);
+    width: calc(100% - 12px) !important;
+    max-width: calc(100% - 12px);
+    min-height: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 22px 20px 20px !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    z-index: auto !important;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current{
+    border-color: rgba(255,122,50,.28);
+    box-shadow: 0 22px 42px rgba(0,0,0,.28), 0 0 0 1px rgba(255,122,50,.10);
+  }
+
+  .page-pricing .plan-carousel__dots,
+  .page-dailies .plan-carousel__dots{
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    display: flex !important;
+    justify-content: center;
+    width: fit-content;
+    margin: 12px auto 0;
+    z-index: 4;
   }
 }
