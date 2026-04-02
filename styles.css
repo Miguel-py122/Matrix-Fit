@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@400;600;700;800&display=swap");
 
 :root{
   --bg: #07100b;
@@ -23,6 +23,479 @@
 
   --container: 1180px;
   --focus: 0 0 0 3px rgba(37, 223, 118, .28);
+}
+
+/* Premium pricing redesign: mantém o carousel atual e substitui apenas a camada visual. */
+.page-pricing .pricing-cards--variants .pricing-card--clean,
+.page-dailies .pricing-cards--variants .pricing-card--clean{
+  --card-accent: #00f0ff;
+  --card-accent-soft: rgba(0, 240, 255, .24);
+  --card-accent-strong: rgba(0, 240, 255, .44);
+  --card-secondary: #8b5cf6;
+  --card-highlight: #ec4899;
+  --card-warm: #facc15;
+  font-family: "Inter", "Sora", ui-sans-serif, system-ui, sans-serif;
+  padding: 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(150% 90% at 50% 0%, rgba(255,255,255,.12), transparent 48%),
+    radial-gradient(80% 80% at 100% 0%, var(--card-accent-soft), transparent 50%),
+    linear-gradient(180deg, rgba(14,18,34,.90), rgba(8,11,23,.96));
+  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 18px 50px rgba(0,0,0,.34),
+    0 0 0 1px rgba(255,255,255,.03);
+}
+
+.page-pricing .pricing-cards--variants .pricing-card--golden,
+.page-dailies .pricing-cards--variants .pricing-card--golden{
+  --card-accent: #facc15;
+  --card-accent-soft: rgba(250, 204, 21, .24);
+  --card-accent-strong: rgba(250, 204, 21, .46);
+  --card-secondary: #8b5cf6;
+  --card-highlight: #ec4899;
+}
+
+.page-pricing .pricing-cards--variants .pricing-card--prata,
+.page-dailies .pricing-cards--variants .pricing-card--prata{
+  --card-accent: #00f0ff;
+  --card-accent-soft: rgba(0, 240, 255, .22);
+  --card-accent-strong: rgba(0, 240, 255, .42);
+  --card-secondary: #8b5cf6;
+  --card-highlight: #ec4899;
+}
+
+.page-pricing .pricing-cards--variants .pricing-card--bronze,
+.page-dailies .pricing-cards--variants .pricing-card--bronze{
+  --card-accent: #facc15;
+  --card-accent-soft: rgba(250, 204, 21, .20);
+  --card-accent-strong: rgba(250, 204, 21, .40);
+  --card-secondary: #ec4899;
+  --card-highlight: #8b5cf6;
+}
+
+.page-dailies .pricing-cards--variants .pricing-card--daily{
+  --card-accent: #00f0ff;
+  --card-accent-soft: rgba(0, 240, 255, .24);
+  --card-accent-strong: rgba(0, 240, 255, .44);
+  --card-secondary: #8b5cf6;
+  --card-highlight: #ec4899;
+}
+
+/* Camadas decorativas e glow geral do card. */
+.page-pricing .pricing-cards--variants .pricing-card--clean::before,
+.page-dailies .pricing-cards--variants .pricing-card--clean::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 30%),
+    radial-gradient(55% 45% at 20% 0%, var(--card-accent-soft), transparent 72%);
+  opacity:.72;
+}
+
+.page-pricing .pricing-cards--variants .pricing-card--clean::after,
+.page-dailies .pricing-cards--variants .pricing-card--clean::after{
+  content:"";
+  position:absolute;
+  inset:auto -24% -28% auto;
+  width: 180px;
+  height: 180px;
+  border-radius:50%;
+  pointer-events:none;
+  background: radial-gradient(circle, var(--card-accent-soft), transparent 66%);
+  filter: blur(8px);
+  opacity:.9;
+}
+
+/* Conteúdo principal do card. */
+.pricing-card__badge-row{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  flex-wrap:wrap;
+}
+
+.pricing-card__badge,
+.pricing-card__meta-chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height: 34px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.pricing-card__badge{
+  background: linear-gradient(90deg, var(--card-accent-soft), rgba(255,255,255,.06));
+  color: #f7fbff;
+  box-shadow: 0 0 18px rgba(0,0,0,.18);
+}
+
+.pricing-card__badge--premium{
+  background: linear-gradient(90deg, rgba(0,240,255,.28), rgba(139,92,246,.32), rgba(236,72,153,.32));
+}
+
+.pricing-card__badge--cool{
+  background: linear-gradient(90deg, rgba(0,240,255,.26), rgba(139,92,246,.24));
+}
+
+.pricing-card__badge--sun{
+  background: linear-gradient(90deg, rgba(250,204,21,.28), rgba(236,72,153,.22));
+}
+
+.pricing-card__meta-chip{
+  color: rgba(236,244,255,.82);
+  background: rgba(255,255,255,.05);
+}
+
+.pricing-card__hero{
+  position:relative;
+  z-index:1;
+  display:grid;
+  justify-items:center;
+  gap: 14px;
+  text-align:center;
+}
+
+.pricing-card__icon{
+  position:relative;
+  display:grid;
+  place-items:center;
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 42%),
+    linear-gradient(135deg, var(--card-accent-soft), rgba(255,255,255,.04));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 0 22px var(--card-accent-soft),
+    0 16px 34px rgba(0,0,0,.26);
+  animation: premiumPulse 4.2s ease-in-out infinite;
+}
+
+.pricing-card__icon svg{
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pricing-card__icon--gold svg{
+  fill: rgba(250,204,21,.18);
+  stroke: #fff4b0;
+}
+
+.pricing-card__icon--silver svg{
+  fill: rgba(0,240,255,.14);
+  stroke: #abf8ff;
+}
+
+.pricing-card__icon--bronze svg,
+.pricing-card__icon--daily svg{
+  fill: rgba(250,204,21,.16);
+  stroke: #fff;
+}
+
+.pricing-cards--variants .pricing-card__top{
+  position:relative;
+  z-index:1;
+  justify-content:center;
+  text-align:center;
+}
+
+.pricing-cards--variants .pricing-card__plan{
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1;
+  letter-spacing: -.05em;
+  color: #fbfdff;
+  text-shadow: 0 0 22px rgba(255,255,255,.06);
+}
+
+.pricing-cards--variants .pricing-card__subtitle{
+  margin-top: 8px;
+  color: rgba(220,230,255,.76);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Caixa de preço com alto contraste e glow. */
+.page-pricing .pricing-card__price-block,
+.page-dailies .pricing-card__price-block{
+  position:relative;
+  z-index:1;
+  padding: 18px 18px 16px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+    rgba(6,10,20,.64);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 26px rgba(0,0,0,.16);
+  backdrop-filter: blur(12px);
+}
+
+.page-pricing .pricing-card__price-label,
+.page-dailies .pricing-card__price-label{
+  color: rgba(231,238,255,.62);
+  letter-spacing: .18em;
+}
+
+.page-pricing .pricing-card__price,
+.page-dailies .pricing-card__price{
+  margin-top: 8px;
+  font-size: clamp(42px, 5vw, 58px);
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    0 0 18px var(--card-accent-soft),
+    0 0 36px rgba(255,255,255,.05);
+}
+
+.page-pricing .pricing-card__price-suffix,
+.page-dailies .pricing-card__price-suffix{
+  margin-top: 6px;
+  color: rgba(225,235,255,.72);
+  font-size: 12px;
+}
+
+/* Lista de benefícios para reforçar a leitura premium. */
+.page-pricing .pricing-card__features,
+.page-dailies .pricing-card__features{
+  position:relative;
+  z-index:1;
+  gap: 12px;
+}
+
+.page-pricing .pricing-card__features li,
+.page-dailies .pricing-card__features li{
+  padding-left: 24px;
+  color: rgba(232,238,250,.84);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.page-pricing .pricing-card__features li::before,
+.page-dailies .pricing-card__features li::before{
+  top: .45em;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(180deg, var(--card-accent), var(--card-highlight));
+  box-shadow: 0 0 0 4px rgba(255,255,255,.04), 0 0 16px var(--card-accent-soft);
+}
+
+.page-dailies .daily-card__text{
+  position:relative;
+  z-index:1;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+  color: rgba(231,238,255,.82);
+}
+
+/* Botões com gradiente, shimmer e ação secundária. */
+.pricing-card__actions{
+  position:relative;
+  z-index:1;
+  display:grid;
+  gap: 10px;
+  margin-top:auto;
+}
+
+.page-pricing .btn--pricing,
+.page-dailies .btn--pricing,
+.page-pricing .btn--pricing-secondary,
+.page-dailies .btn--pricing-secondary{
+  position:relative;
+  overflow:hidden;
+  min-height: 52px;
+  border-radius: 18px;
+  text-decoration:none;
+  font-family: "Inter", "Sora", ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.page-pricing .btn--pricing::before,
+.page-dailies .btn--pricing::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  left:-130%;
+  background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,.36) 50%, transparent 75%);
+  transition: left .7s ease;
+}
+
+.page-pricing .btn--pricing:hover::before,
+.page-dailies .btn--pricing:hover::before{
+  left:130%;
+}
+
+.page-pricing .btn--pricing,
+.page-dailies .btn--pricing{
+  width:100%;
+  margin-top:0;
+  border: 1px solid transparent;
+  color: #fff;
+  background: linear-gradient(90deg, var(--card-accent), var(--card-secondary), var(--card-highlight));
+  background-size: 180% 180%;
+  box-shadow: 0 14px 30px var(--card-accent-soft);
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease, background-position .3s ease;
+}
+
+.page-pricing .btn--pricing:hover,
+.page-dailies .btn--pricing:hover{
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 20px 40px var(--card-accent-strong);
+  filter: brightness(1.04);
+}
+
+.page-pricing .btn--pricing-secondary,
+.page-dailies .btn--pricing-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(241,246,255,.9);
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(10px);
+  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.page-pricing .btn--pricing-secondary:hover,
+.page-dailies .btn--pricing-secondary:hover{
+  transform: translateY(-1px);
+  border-color: var(--card-accent-strong);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 0 24px rgba(255,255,255,.06);
+}
+
+/* Estados do carousel preservados, com mais brilho no card ativo e hover mais premium. */
+.pricing-cards--variants .pricing-card--clean{
+  transition:
+    transform .48s cubic-bezier(.22,1,.36,1),
+    opacity .42s ease,
+    border-color .36s ease,
+    box-shadow .42s ease,
+    filter .42s ease;
+}
+
+.pricing-cards--variants .pricing-card--clean:hover,
+.pricing-cards--variants .pricing-card--clean:focus-within{
+  border-color: var(--card-accent-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 22px 50px rgba(0,0,0,.36),
+    0 0 0 1px rgba(255,255,255,.04),
+    0 0 34px var(--card-accent-soft);
+}
+
+.pricing-cards--variants .pricing-card--clean.is-current{
+  animation: premiumEnter .55s cubic-bezier(.22,1,.36,1);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 34px 60px rgba(0,0,0,.44),
+    0 0 0 1px rgba(255,255,255,.04),
+    0 0 38px var(--card-accent-soft);
+}
+
+.pricing-cards--variants .pricing-card--clean.is-prev,
+.pricing-cards--variants .pricing-card--clean.is-next{
+  opacity: .24;
+}
+
+.plan-carousel__arrow{
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(7,10,20,.82);
+  backdrop-filter: blur(12px);
+}
+
+.plan-carousel__arrow:hover{
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 0 24px rgba(255,255,255,.08), 0 16px 30px rgba(0,0,0,.24);
+}
+
+.plan-carousel__dot{
+  background: rgba(255,255,255,.18);
+}
+
+.plan-carousel__dot.is-active{
+  background: linear-gradient(90deg, #00f0ff, #8b5cf6, #ec4899);
+  box-shadow: 0 6px 16px rgba(139,92,246,.28);
+}
+
+/* Ajustes de responsividade sem quebrar o slider em mobile. */
+@keyframes premiumPulse{
+  0%, 100%{ transform: translateY(0); box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 22px var(--card-accent-soft), 0 16px 34px rgba(0,0,0,.26); }
+  50%{ transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 30px var(--card-accent-strong), 0 18px 36px rgba(0,0,0,.28); }
+}
+
+@keyframes premiumEnter{
+  from{ opacity: 0; transform: translateX(-50%) scale(.94); }
+  to{ opacity: 1; }
+}
+
+@media (max-width: 780px){
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean{
+    padding: 20px;
+    border-radius: 26px;
+  }
+
+  .pricing-card__badge-row{
+    justify-content:center;
+  }
+
+  .pricing-card__icon{
+    width: 68px;
+    height: 68px;
+  }
+
+  .pricing-card__icon svg{
+    width: 30px;
+    height: 30px;
+  }
+
+  .pricing-card__actions{
+    gap: 8px;
+  }
+
+  .page-pricing .btn--pricing,
+  .page-dailies .btn--pricing,
+  .page-pricing .btn--pricing-secondary,
+  .page-dailies .btn--pricing-secondary{
+    min-height: 50px;
+    font-size: 12px;
+    letter-spacing: .1em;
+  }
+
+  @keyframes premiumEnter{
+    from{ opacity: 0; transform: translateY(18px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
 }
 
 *{ box-sizing:border-box; }
