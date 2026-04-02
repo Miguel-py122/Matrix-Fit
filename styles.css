@@ -5327,7 +5327,11 @@ body{
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 6px 0 2px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.018);
+  border: 1px solid rgba(255,255,255,.05);
 }
 
 .page-home .contact-social__icon{
@@ -5955,5 +5959,411 @@ body{
   .page-pricing .pricing-card__plan,
   .page-dailies .pricing-card__plan{
     font-size: clamp(26px, 8vw, 34px) !important;
+  }
+}
+
+/* =========================================================
+   Mobile Final Overrides
+   Camada final para celular: preserva o desktop e consolida
+   header, tipografia, grids, cards e áreas clicáveis.
+   ========================================================= */
+
+@media (max-width: 768px){
+  /* Base mobile: evita overflow lateral e cria respiro consistente. */
+  html,
+  body{
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .container,
+  .page-home .container,
+  .page-pricing .container,
+  .page-dailies .container{
+    width: min(100% - 40px, var(--container));
+  }
+
+  body{
+    padding-top: 76px;
+  }
+
+  .main,
+  .page-home .main,
+  .page-pricing .main,
+  .page-dailies .main{
+    padding: 18px 0 48px;
+  }
+
+  h1,
+  h2,
+  h3,
+  .showcase__title,
+  .page-home .showcase__title,
+  .pricing-page__title,
+  .panel__title,
+  .cta-band__title,
+  .plan-group__title,
+  .pricing-card__plan,
+  .pricing-banner__title{
+    text-wrap: balance;
+  }
+
+  .showcase__title,
+  .page-home .showcase__title,
+  .pricing-page__title,
+  .panel__title,
+  .cta-band__title,
+  .plan-group__title{
+    font-size: clamp(30px, 9vw, 46px) !important;
+    line-height: 1.02;
+    letter-spacing: -.05em;
+    max-width: 100%;
+  }
+
+  .card__title,
+  .benefit-card__title,
+  .footer__title,
+  .pricing-banner__title,
+  .pricing-card__plan{
+    font-size: clamp(20px, 6.2vw, 28px) !important;
+    line-height: 1.12;
+  }
+
+  .showcase__text,
+  .page-home .showcase__text,
+  .panel__desc,
+  .cta-band__text,
+  .pricing-page__text,
+  .plan-group__text,
+  .card__text,
+  .benefit-card__text,
+  .footer__text,
+  .muted,
+  .contact__items p,
+  .pricing-card__subtitle,
+  .daily-card__text{
+    font-size: 14px !important;
+    line-height: 1.65;
+  }
+
+  /* Header mobile: compacto, fácil de alcançar e com menu estável. */
+  .topbar{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 140;
+  }
+
+  .topbar__inner{
+    min-height: 64px;
+    padding: 8px 0;
+    gap: 12px;
+  }
+
+  .brand{
+    gap: 10px;
+  }
+
+  .brand__logo{
+    width: 50px;
+    padding: 7px;
+    border-radius: 14px;
+  }
+
+  .brand__text{
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .brand__name{
+    font-size: 10px;
+    letter-spacing: .18em;
+  }
+
+  .brand__tagline{
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .topbar__toggle{
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .tabs{
+    top: calc(100% + 8px);
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .tab,
+  .btn,
+  .contact__cta,
+  .pricing-page__switch-link,
+  .field__input,
+  .contact-form__submit,
+  .btn--pricing,
+  .btn--pricing-secondary{
+    min-height: 48px;
+  }
+
+  .tab,
+  .btn,
+  .contact__cta,
+  .pricing-page__switch-link,
+  .btn--pricing,
+  .btn--pricing-secondary{
+    width: 100%;
+  }
+
+  /* Home: reduz peso visual inicial e organiza leitura em blocos. */
+  .page-home .main > .container,
+  .plan-groups{
+    gap: 28px;
+  }
+
+  .showcase,
+  .page-home .showcase,
+  .benefits,
+  .page-home .benefits,
+  .cta-band,
+  .page-home .cta-band,
+  .footer--site,
+  .page-home .footer--site{
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .panel,
+  .page-home .panel{
+    padding-top: 28px;
+  }
+
+  .showcase,
+  .page-home .showcase,
+  .showcase__copy,
+  .showcase__panel,
+  .benefits__grid,
+  .grid,
+  .grid--2,
+  .contact-layout,
+  .contact-form__grid,
+  .footer__grid,
+  .gallery,
+  .academy-gallery{
+    grid-template-columns: 1fr;
+  }
+
+  .showcase,
+  .page-home .showcase{
+    gap: 18px;
+  }
+
+  .showcase__actions,
+  .cta-band__actions,
+  .contact-card__actions,
+  .pricing-card__actions,
+  .pricing-page__switch{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .showcase__visual,
+  .page-home .showcase__visual{
+    width: 100%;
+    min-height: 220px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .showcase__visual img,
+  .page-home .showcase__visual img,
+  .gallery__item img,
+  .academy-gallery .gallery--pagination .gallery__item img{
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .showcase__stats,
+  .page-home .showcase__stats,
+  .benefits__grid,
+  .page-home .benefits__grid,
+  .grid,
+  .footer__grid{
+    gap: 14px;
+  }
+
+  .stat,
+  .benefit-card,
+  .card,
+  .contact-card,
+  .offer,
+  .note{
+    width: 100%;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .page-home .contact-card--info,
+  .page-home .contact-card--form{
+    padding: 22px 18px;
+    gap: 16px;
+  }
+
+  .page-home .contact__items--stacked,
+  .page-home .contact-card__actions,
+  .page-home .contact-form,
+  .page-home .contact-form__grid{
+    gap: 12px;
+  }
+
+  .page-home .contact__items--stacked p,
+  .page-home .contact-social{
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .page-home .contact-social{
+    min-height: 64px;
+  }
+
+  .page-home .contact-social__icon{
+    width: 40px;
+    height: 40px;
+  }
+
+  .page-home .label,
+  .field__label,
+  .page-home .field__label{
+    font-size: 11px;
+    letter-spacing: .08em;
+  }
+
+  .field__input,
+  .page-home .field__input{
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: 16px;
+  }
+
+  .field__input--textarea,
+  .page-home .field__input--textarea{
+    min-height: 136px;
+  }
+
+  /* Planos e diárias: uma coluna, sem esconder cards no mobile. */
+  .page-pricing .pricing-page__head,
+  .page-dailies .pricing-page__head{
+    margin-bottom: 18px;
+    gap: 12px;
+  }
+
+  .plan-group,
+  .pricing-banner{
+    gap: 14px;
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .page-pricing .plan-carousel,
+  .page-dailies .plan-carousel{
+    padding: 0;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .page-pricing .plan-carousel__arrow,
+  .page-dailies .plan-carousel__arrow,
+  .page-pricing .plan-carousel__dots,
+  .page-dailies .plan-carousel__dots{
+    display: none !important;
+  }
+
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants{
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    height: auto !important;
+    min-height: 0;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
+  .page-dailies .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
+    display: flex !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 22px 20px 20px !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    z-index: auto !important;
+    border-radius: 24px;
+    box-shadow: 0 18px 42px rgba(0,0,0,.26);
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card__price,
+  .page-dailies .pricing-cards--variants .pricing-card__price{
+    font-size: clamp(34px, 10vw, 46px) !important;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card__subtitle,
+  .page-dailies .pricing-cards--variants .pricing-card__subtitle,
+  .page-pricing .pricing-cards--variants .pricing-card__features li,
+  .page-dailies .pricing-cards--variants .pricing-card__features li{
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card__actions,
+  .page-dailies .pricing-cards--variants .pricing-card__actions{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .page-pricing .pricing-banner .btn,
+  .page-dailies .pricing-banner .btn{
+    width: 100%;
+  }
+
+  /* Footer e áreas finais: leitura limpa e bom respiro no scroll. */
+  .footer,
+  .page-home .footer,
+  .footer--site,
+  .page-home .footer--site{
+    margin-top: 18px;
+  }
+
+  .footer__inner,
+  .footer__grid{
+    gap: 12px;
+  }
+
+  .footer__column a{
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
   }
 }
