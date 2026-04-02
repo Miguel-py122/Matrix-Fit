@@ -36,13 +36,20 @@
           </div>
         </div>
 
-        <nav class="tabs" aria-label="Navegação">
+        <button class="topbar__toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="tabs" id="site-nav" aria-label="Navegação">
           <a class="tab" href="./index.html">Início</a>
-          <a class="tab" href="./planos.html">Mensais</a>
-          <a class="tab" href="./trimestrais.html">Trimestrais</a>
-          <a class="tab" href="#diarias">Diárias</a>
+          <a class="tab" href="#diarias">Planos</a>
+          <a class="tab" href="./diarias.html">Diárias</a>
+          <a class="tab" href="./index.html#painel-academia">Sobre</a>
           <a class="tab" href="./index.html#painel-contato">Contato</a>
         </nav>
+        <a class="btn btn--topbar" href="./index.html#painel-contato">Começar</a>
       </div>
     </header>
 
@@ -99,7 +106,7 @@
 
                     <ul class="pricing-card__features">
                       <li>Entrada simples para testar o ambiente</li>
-                      <li>Visual premium com glow azul neon</li>
+                      <li>Visual premium com leitura limpa e direta</li>
                       <li>Perfeito para sentir a energia da academia</li>
                     </ul>
 
@@ -139,7 +146,7 @@
 
                     <ul class="pricing-card__features">
                       <li>Pacote com excelente equilíbrio de custo</li>
-                      <li>Glow rosa e azul com linguagem gamer</li>
+                      <li>Apresentação moderna com valor bem percebido</li>
                       <li>Boa escolha para rotina variável</li>
                     </ul>
 
@@ -149,7 +156,7 @@
                     </div>
                   </article>
 
-                  <article class="pricing-card pricing-card--clean pricing-card--daily">
+                  <article class="pricing-card pricing-card--clean pricing-card--daily pricing-card--featured">
                     <div class="pricing-card__badge-row">
                       <span class="pricing-card__badge pricing-card__badge--sun">Melhor custo</span>
                       <span class="pricing-card__meta-chip">10 acessos</span>

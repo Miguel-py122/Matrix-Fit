@@ -36,43 +36,51 @@
           </div>
         </div>
 
-        <nav class="tabs" aria-label="Navegação">
-          <a class="tab" href="#painel-academia">A Academia</a>
-          <a class="tab" href="./planos.html">Mensais</a>
-          <a class="tab" href="./trimestrais.html">Trimestrais</a>
+        <button class="topbar__toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="tabs" id="site-nav" aria-label="Navegação">
+          <a class="tab" href="#conteudo">Início</a>
+          <a class="tab" href="./planos.html">Planos</a>
           <a class="tab" href="./diarias.html">Diárias</a>
+          <a class="tab" href="#painel-academia">Sobre</a>
           <a class="tab" href="#painel-contato">Contato</a>
         </nav>
+        <a class="btn btn--topbar" href="#painel-contato">Matricule-se</a>
       </div>
     </header>
 
     <main id="conteudo" class="main" role="main">
       <div class="container">
+        <!-- Hero principal com foco em conversão e posicionamento da marca -->
         <section class="showcase" aria-label="Apresentação da MatrixFit">
           <div class="showcase__copy">
-            <p class="eyebrow">Academia Matrix Fit</p>
-            <h1 class="showcase__title">Performance, disciplina e uma estrutura feita para quem quer evoluir de verdade.</h1>
+            <p class="eyebrow">Academia premium em Macaúbas</p>
+            <h1 class="showcase__title">TRANSFORME SEU <span class="highlight">CORPO</span> COM TREINO, DISCIPLINA E ESTRUTURA DE ALTO PADRÃO.</h1>
             <p class="showcase__text">
-              A MatrixFit entrega ambiente forte, atendimento direto e planos organizados para facilitar a escolha de quem quer começar ou subir de nível no treino.
+              A MatrixFit combina ambiente forte, atendimento direto e planos organizados para quem quer resultado real com uma experiência mais profissional e confiável.
             </p>
 
             <div class="showcase__actions">
-              <a class="btn btn--primary" href="#painel-contato">Falar no WhatsApp</a>
-              <a class="btn btn--ghost" href="./planos.html">Ver mensais</a>
+              <a class="btn btn--primary" href="./planos.html">Ver planos</a>
+              <a class="btn btn--ghost" href="#painel-contato">Começar agora</a>
             </div>
 
             <div class="showcase__stats" aria-label="Resumo rápido">
               <div class="stat">
-                <span class="stat__value">Ouro</span>
-                <span class="stat__label">plano com acesso mais completo</span>
+                <span class="stat__value">+3</span>
+                <span class="stat__label">categorias de planos ativos</span>
               </div>
               <div class="stat">
-                <span class="stat__value">3</span>
-                <span class="stat__label">categorias de plano</span>
+                <span class="stat__value">05h</span>
+                <span class="stat__label">abertura cedo para sua rotina</span>
               </div>
               <div class="stat">
                 <span class="stat__value">Macaúbas</span>
-                <span class="stat__label">atendimento no centro da cidade</span>
+                <span class="stat__label">localização central e atendimento rápido</span>
               </div>
             </div>
           </div>
@@ -81,19 +89,35 @@
             <figure class="showcase__visual">
               <img src="./assets/imagens/unnamed.png" data-fallback="./assets/image-placeholder.svg" alt="Interior da MatrixFit" loading="lazy" decoding="async" />
             </figure>
-
-            <div class="showcase__card showcase__card--main">
-              <p class="showcase__card-kicker">Oferta rápida</p>
-              <strong>Diária: R$ 20</strong>
-              <span>Pacotes de 5 e 10 diárias também disponíveis.</span>
-            </div>
-
-            <div class="showcase__card showcase__card--accent">
-              <p class="showcase__card-kicker">Instagram</p>
-              <strong>@academiamatrixfit</strong>
-              <span>Conteúdo e novidades da academia.</span>
-            </div>
           </aside>
+        </section>
+
+        <!-- Benefícios principais com leitura rápida e foco em valor percebido -->
+        <section class="benefits" aria-label="Benefícios MatrixFit">
+          <div class="benefits__head">
+            <p class="section-kicker">Por que escolher a MatrixFit</p>
+            <h2 class="panel__title">UMA ACADEMIA FEITA PARA <span class="highlight">RESULTADO</span>, CONSTÂNCIA E EVOLUÇÃO.</h2>
+          </div>
+
+          <div class="benefits__grid">
+            <article class="benefit-card">
+              <span class="benefit-card__icon" aria-hidden="true">MF</span>
+              <h3 class="benefit-card__title">Treinos personalizados</h3>
+              <p class="benefit-card__text">Cada aluno encontra um plano mais compatível com frequência, horário e objetivo.</p>
+            </article>
+
+            <article class="benefit-card">
+              <span class="benefit-card__icon" aria-hidden="true">AC</span>
+              <h3 class="benefit-card__title">Acompanhamento direto</h3>
+              <p class="benefit-card__text">Atendimento rápido para tirar dúvidas, escolher plano e entrar em ação sem enrolação.</p>
+            </article>
+
+            <article class="benefit-card">
+              <span class="benefit-card__icon" aria-hidden="true">RX</span>
+              <h3 class="benefit-card__title">Resultados mais rápidos</h3>
+              <p class="benefit-card__text">Estrutura organizada, ambiente forte e consistência para acelerar sua evolução física.</p>
+            </article>
+          </div>
         </section>
 
         <!-- ACADEMIA -->
@@ -107,32 +131,16 @@
         >
           <div class="panel__header">
             <p class="section-kicker">Sobre a academia</p>
-            <h2 class="panel__title">A Academia</h2>
+            <h2 class="panel__title">NOSSO <span class="highlight">ESPAÇO</span></h2>
             <p class="panel__desc">
               Um ambiente pensado para você treinar com foco, segurança e consistência.
             </p>
           </div>
 
-          <div class="grid grid--2">
-            <article class="card">
-              <h3 class="card__title">Estrutura</h3>
-              <p class="card__text">
-                A MatrixFit tem um ambiente organizado, forte visual de marca e espaço preparado para treino com constância.
-              </p>
-              <ul class="list">
-                <li>Área de musculação</li>
-                <li>Área de cardio</li>
-                <li>Ambiente pensado para foco e evolução</li>
-              </ul>
-              <p class="muted">Macaúbas — BA</p>
-            </article>
-
-            <article class="card">
+          <div class="grid academy-gallery" aria-label="Galeria da academia">
+            <article class="card academy-gallery__card">
               <h3 class="card__title">Galeria</h3>
-              <p class="card__text">
-                Visual real da academia para passar mais confiança e valor logo no primeiro acesso.
-              </p>
-              <div class="gallery" aria-label="Fotos da academia">
+              <div class="gallery gallery--pagination" aria-label="Fotos da academia">
                 <figure class="gallery__item">
                   <img src="./assets/imagens/unnamed.png" data-fallback="./assets/image-placeholder.svg" alt="Área de musculação" loading="lazy" decoding="async" />
                 </figure>
@@ -146,20 +154,19 @@
                   <img src="./assets/imagens/logo-academia.png" data-fallback="./assets/image-placeholder.svg" alt="Marca MatrixFit" loading="lazy" decoding="async" />
                 </figure>
               </div>
-              <p class="muted">Quando você mandar mais fotos reais, a galeria pode virar uma vitrine ainda mais forte da academia.</p>
             </article>
           </div>
         </section>
 
         <section class="cta-band" aria-label="Chamada para ação MatrixFit">
           <div class="cta-band__copy">
-            <p class="section-kicker">Comece agora</p>
-            <h2 class="cta-band__title">Pronto para treinar na MatrixFit?</h2>
-            <p class="cta-band__text">Fale com a academia, tire suas dúvidas e escolha o plano ou pacote ideal para sua rotina.</p>
+            <p class="section-kicker">Comece hoje</p>
+            <h2 class="cta-band__title">PRONTO PARA ELEVAR SEU <span class="highlight">NÍVEL</span> DE TREINO?</h2>
+            <p class="cta-band__text">Escolha seu plano, fale com a equipe e comece sua transformação com uma estrutura que passa confiança desde o primeiro acesso.</p>
           </div>
           <div class="cta-band__actions">
-            <a class="btn btn--primary" href="#painel-contato">Quero atendimento</a>
-            <a class="btn btn--ghost" href="./trimestrais.html">Ver planos trimestrais</a>
+            <a class="btn btn--primary" href="#painel-contato">Comece hoje</a>
+            <a class="btn btn--ghost" href="./planos.html">Ver planos</a>
           </div>
         </section>
 
@@ -174,44 +181,68 @@
         >
           <div class="panel__header">
             <p class="section-kicker">Fale com a MatrixFit</p>
-            <h2 class="panel__title">Contato e Dúvidas</h2>
+            <h2 class="panel__title">ENTRE EM <span class="highlight">CONTATO</span></h2>
             <p class="panel__desc">Fale com a MatrixFit, veja localização e resolva tudo rápido pelo canal que preferir.</p>
           </div>
 
-          <div class="grid grid--2">
-            <article class="card">
+          <div class="contact-layout">
+            <article class="card contact-card contact-card--info">
               <h3 class="card__title">Fale com a gente</h3>
-              <div class="contact">
-                <a class="contact__cta" href="https://wa.me/5577999202077?text=Oi%20MatrixFit!%20Quero%20tirar%20uma%20d%C3%BAvida%20e%20saber%20mais%20sobre%20os%20planos." target="_blank" rel="noreferrer">
-                  WhatsApp
-                </a>
-                <div class="contact__items">
-                  <p><span class="label">Telefone:</span> <a href="tel:+5577999202077">(77) 99920-2077</a></p>
-                  <p><span class="label">Instagram:</span> <a href="https://www.instagram.com/academiamatrixfit/" target="_blank" rel="noreferrer">@academiamatrixfit</a></p>
-                  <p><span class="label">Endereço:</span> Rua Dr. Vital Soares, 227 — Centro, Macaúbas — BA, 46500-000</p>
-                  <p>
-                    <span class="label">Horários:</span>
-                    Qua–Sex 05:00–22:00 · Sáb 06:00–11:00 · Dom 08:00–12:00
-                  </p>
-                </div>
+              <p class="card__text">Atendimento direto para tirar dúvidas, escolher plano e começar sua rotina sem complicação.</p>
+
+              <div class="contact__items contact__items--stacked">
+                <p><span class="label">WhatsApp</span> <a href="https://wa.me/5577999202077?text=Oi%20MatrixFit!%20Quero%20tirar%20uma%20d%C3%BAvida%20e%20saber%20mais%20sobre%20os%20planos." target="_blank" rel="noreferrer">(77) 99920-2077</a></p>
+                <p><span class="label">Endereço</span> Rua Dr. Vital Soares, 227 — Centro, Macaúbas — BA, 46500-000</p>
+                <p><span class="label">Horários</span> Qua–Sex 05:00–22:00 · Sáb 06:00–11:00 · Dom 08:00–12:00</p>
               </div>
+
+              <div class="contact-social" aria-label="Instagram da MatrixFit">
+                <a class="contact-social__icon" href="https://www.instagram.com/academiamatrixfit/" target="_blank" rel="noreferrer" aria-label="Instagram da MatrixFit">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Z" />
+                    <path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" />
+                    <path d="M17.5 6.5h.01" />
+                  </svg>
+                </a>
+              </div>
+
+              <div class="contact-card__actions">
+                <a class="contact__cta" href="https://wa.me/5577999202077?text=Oi%20MatrixFit!%20Quero%20tirar%20uma%20d%C3%BAvida%20e%20saber%20mais%20sobre%20os%20planos." target="_blank" rel="noreferrer">Chamar no WhatsApp</a>
+                <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Rua%20Dr.%20Vital%20Soares%2C%20227%20-%20Centro%2C%20Maca%C3%BAbas%20-%20BA%2C%2046500-000" target="_blank" rel="noreferrer">Abrir no Maps</a>
+              </div>
+
               <p class="muted">Em feriados, os horários podem mudar.</p>
             </article>
 
-            <article class="card">
-              <h3 class="card__title">Como chegar</h3>
-              <p class="card__text">Abra a rota no Google Maps para chegar mais rápido.</p>
-              <div class="contact">
-                <a
-                  class="contact__cta"
-                  href="https://www.google.com/maps/search/?api=1&query=Rua%20Dr.%20Vital%20Soares%2C%20227%20-%20Centro%2C%20Maca%C3%BAbas%20-%20BA%2C%2046500-000"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Abrir no Maps
-                </a>
-                <p class="muted">Se preferir, fale pelo Instagram ou WhatsApp.</p>
-              </div>
+            <article class="card contact-card contact-card--form">
+              <h3 class="card__title">Envie sua mensagem</h3>
+              <p class="card__text">Preencha os dados abaixo para solicitar informações sobre planos, horários e matrícula.</p>
+
+              <form class="contact-form">
+                <div class="contact-form__grid">
+                  <label class="field">
+                    <span class="field__label">Nome</span>
+                    <input class="field__input" type="text" name="nome" placeholder="Seu nome" />
+                  </label>
+
+                  <label class="field">
+                    <span class="field__label">Telefone</span>
+                    <input class="field__input" type="tel" name="telefone" placeholder="(77) 99999-9999" />
+                  </label>
+                </div>
+
+                <label class="field">
+                  <span class="field__label">E-mail</span>
+                  <input class="field__input" type="email" name="email" placeholder="voce@email.com" />
+                </label>
+
+                <label class="field">
+                  <span class="field__label">Mensagem</span>
+                  <textarea class="field__input field__input--textarea" name="mensagem" placeholder="Quero saber mais sobre os planos da MatrixFit."></textarea>
+                </label>
+
+                <button class="btn btn--primary contact-form__submit" type="submit">Solicitar atendimento</button>
+              </form>
             </article>
           </div>
 

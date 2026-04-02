@@ -114,6 +114,110 @@
     });
   }
 
+  function initMobileMenu() {
+    const toggle = document.querySelector('.topbar__toggle');
+    const nav = document.querySelector('.tabs');
+    if (!toggle || !nav) return;
+
+    const closeMenu = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('is-open');
+      document.body.classList.remove('is-mobile-nav-open');
+    };
+
+    const openMenu = () => {
+      toggle.setAttribute('aria-expanded', 'true');
+      nav.classList.add('is-open');
+      document.body.classList.add('is-mobile-nav-open');
+    };
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      if (expanded) closeMenu();
+      else openMenu();
+    });
+
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) closeMenu();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+  }
+
+  function initPaginatedGalleries() {
+    const galleries = Array.from(document.querySelectorAll('.gallery--pagination'));
+    if (!galleries.length) return;
+
+    galleries.forEach((gallery) => {
+      const items = Array.from(gallery.querySelectorAll('.gallery__item'));
+      if (items.length <= 1) return;
+
+      let currentIndex = 0;
+      const controls = document.createElement('div');
+      controls.className = 'gallery__controls';
+
+      const prevButton = document.createElement('button');
+      prevButton.type = 'button';
+      prevButton.className = 'gallery__arrow gallery__arrow--prev';
+      prevButton.setAttribute('aria-label', 'Imagem anterior');
+      prevButton.innerHTML = '<span aria-hidden="true">&lsaquo;</span>';
+
+      const dots = document.createElement('div');
+      dots.className = 'gallery__dots';
+
+      const nextButton = document.createElement('button');
+      nextButton.type = 'button';
+      nextButton.className = 'gallery__arrow gallery__arrow--next';
+      nextButton.setAttribute('aria-label', 'Próxima imagem');
+      nextButton.innerHTML = '<span aria-hidden="true">&rsaquo;</span>';
+
+      const dotButtons = items.map((item, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'gallery__dot';
+        button.setAttribute('aria-label', `Ir para imagem ${index + 1}`);
+        button.addEventListener('click', () => {
+          currentIndex = index;
+          render();
+        });
+        dots.appendChild(button);
+        return button;
+      });
+
+      controls.append(prevButton, dots, nextButton);
+      gallery.appendChild(controls);
+
+      const render = () => {
+        items.forEach((item, index) => {
+          item.classList.toggle('is-active', index === currentIndex);
+          item.toggleAttribute('hidden', index !== currentIndex);
+        });
+
+        dotButtons.forEach((button, index) => {
+          button.classList.toggle('is-active', index === currentIndex);
+        });
+      };
+
+      prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        render();
+      });
+
+      nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % items.length;
+        render();
+      });
+
+      render();
+    });
+  }
+
   document.querySelectorAll('[data-go]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const go = btn.getAttribute('data-go');
@@ -126,6 +230,8 @@
   });
 
   applyImageFallbacks();
+  initMobileMenu();
+  initPaginatedGalleries();
   initPlanCarousels();
   setPricingMode('mensal');
 })();

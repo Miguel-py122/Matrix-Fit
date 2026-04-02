@@ -36,13 +36,20 @@
           </div>
         </div>
 
-        <nav class="tabs" aria-label="Navegação">
+        <button class="topbar__toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="tabs" id="site-nav" aria-label="Navegação">
           <a class="tab" href="./index.html">Início</a>
-          <a class="tab" href="#planos">Mensais</a>
-          <a class="tab" href="./trimestrais.html">Trimestrais</a>
-          <a class="tab" href="./index.html#painel-diarias">Diárias</a>
+          <a class="tab" href="#planos">Planos</a>
+          <a class="tab" href="./diarias.html">Diárias</a>
+          <a class="tab" href="./index.html#painel-academia">Sobre</a>
           <a class="tab" href="./index.html#painel-contato">Contato</a>
         </nav>
+        <a class="btn btn--topbar" href="./index.html#painel-contato">Começar</a>
       </div>
     </header>
 
@@ -71,7 +78,7 @@
                 </button>
                 <div class="pricing-cards pricing-cards--matrix pricing-cards--variants">
                   <!-- Card premium: badge, ícone, preço, benefícios e ações -->
-                  <article class="pricing-card pricing-card--clean pricing-card--golden">
+                  <article class="pricing-card pricing-card--clean pricing-card--golden pricing-card--featured">
                     <div class="pricing-card__badge-row">
                       <span class="pricing-card__badge pricing-card__badge--premium">Mais premium</span>
                       <span class="pricing-card__meta-chip">Acesso total</span>
@@ -201,7 +208,7 @@
                   <span aria-hidden="true">&lsaquo;</span>
                 </button>
                 <div class="pricing-cards pricing-cards--matrix pricing-cards--variants">
-                  <article class="pricing-card pricing-card--clean pricing-card--prata">
+                  <article class="pricing-card pricing-card--clean pricing-card--prata pricing-card--featured">
                     <div class="pricing-card__badge-row">
                       <span class="pricing-card__badge pricing-card__badge--cool">Top escolha</span>
                       <span class="pricing-card__meta-chip">Seg a sex</span>
@@ -268,7 +275,7 @@
 
                     <ul class="pricing-card__features">
                       <li>Agenda prática com frequência estratégica</li>
-                      <li>Look premium com brilho neon frio</li>
+                      <li>Acabamento limpo com presença premium</li>
                       <li>Boa opção para encaixar no trabalho e treino</li>
                     </ul>
 
@@ -306,7 +313,7 @@
 
                     <ul class="pricing-card__features">
                       <li>Boa base para consistência sem exagero</li>
-                      <li>Layout premium com acabamento glass</li>
+                      <li>Visual sóbrio com leitura forte e moderna</li>
                       <li>Foco no essencial com visual de alto padrão</li>
                     </ul>
 
@@ -332,7 +339,7 @@
                   <span aria-hidden="true">&lsaquo;</span>
                 </button>
                 <div class="pricing-cards pricing-cards--matrix pricing-cards--variants">
-                  <article class="pricing-card pricing-card--clean pricing-card--bronze">
+                  <article class="pricing-card pricing-card--clean pricing-card--bronze pricing-card--featured">
                     <div class="pricing-card__badge-row">
                       <span class="pricing-card__badge pricing-card__badge--sun">Melhor horário</span>
                       <span class="pricing-card__meta-chip">7h às 15h</span>
@@ -360,7 +367,7 @@
 
                     <ul class="pricing-card__features">
                       <li>Faixa horária ideal para rotina comercial</li>
-                      <li>Visual premium com glow dourado quente</li>
+                      <li>Acabamento premium com destaque elegante</li>
                       <li>Excelente porta de entrada para começar</li>
                     </ul>
 
@@ -398,7 +405,7 @@
 
                     <ul class="pricing-card__features">
                       <li>Boa frequência para manter evolução</li>
-                      <li>Estética neon com leitura clara no mobile</li>
+                      <li>Leitura clara e visual forte em qualquer tela</li>
                       <li>Plano direto para quem quer praticidade</li>
                     </ul>
 
