@@ -3507,8 +3507,10 @@ body::after{
 
 /* Header fixo com navegação mais limpa e botão de ação. */
 .topbar{
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 80;
   border-bottom: 1px solid rgba(255,255,255,.06);
   background: rgba(7, 10, 11, 0.82);
@@ -3518,6 +3520,10 @@ body::after{
 .topbar__inner{
   gap: 14px;
   padding: 14px 0;
+}
+
+body{
+  padding-top: 88px;
 }
 
 .brand__logo{
@@ -4852,10 +4858,15 @@ body::after{
 }
 
 .page-home .showcase{
+  grid-template-columns: 1fr;
   gap: 34px;
   padding: 52px;
   background:
     linear-gradient(180deg, rgba(18,21,24,.96), rgba(11,13,16,.99));
+}
+
+.page-home .showcase__copy{
+  max-width: 920px;
 }
 
 .page-home .showcase::before,
@@ -5800,5 +5811,147 @@ body::after{
   .field__input--textarea,
   .page-home .field__input--textarea{
     min-height: 132px;
+  }
+}
+
+/* =========================================================
+   Mobile Fixes
+   Corrige menu e carrossel apenas no celular.
+   ========================================================= */
+
+@media (max-width: 768px){
+  .topbar{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 120;
+  }
+
+  body{
+    padding-top: 84px;
+  }
+
+  .topbar__inner{
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 10px 0;
+  }
+
+  .btn--topbar{
+    display: none !important;
+  }
+
+  .tabs{
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .tabs.is-open{
+    display: grid;
+  }
+
+  .tab{
+    justify-content: center;
+    text-align: center;
+  }
+
+  .page-pricing .pricing-page__switch,
+  .page-dailies .pricing-page__switch{
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .page-pricing .pricing-page__switch-link,
+  .page-dailies .pricing-page__switch-link{
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .page-pricing .plan-carousel,
+  .page-dailies .plan-carousel{
+    padding: 8px 0 18px;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .page-pricing .plan-carousel__arrow,
+  .page-dailies .plan-carousel__arrow{
+    display: none;
+  }
+
+  .page-pricing .plan-carousel::before,
+  .page-pricing .plan-carousel::after,
+  .page-dailies .plan-carousel::before,
+  .page-dailies .plan-carousel::after{
+    display: none;
+  }
+
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants{
+    position: relative;
+    height: auto !important;
+    min-height: 0;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean{
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    transform: none !important;
+    filter: none !important;
+    margin: 0;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current{
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 2;
+    box-shadow: 0 18px 42px rgba(0,0,0,.32);
+  }
+
+  .page-pricing .plan-carousel__dots,
+  .page-dailies .plan-carousel__dots{
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: fit-content;
+    margin: 14px auto 0;
+    padding: 6px 10px;
+    z-index: 4;
+  }
+
+  .page-pricing .pricing-card__price,
+  .page-dailies .pricing-card__price{
+    font-size: clamp(36px, 11vw, 50px) !important;
+  }
+
+  .page-pricing .pricing-card__plan,
+  .page-dailies .pricing-card__plan{
+    font-size: clamp(26px, 8vw, 34px) !important;
   }
 }
