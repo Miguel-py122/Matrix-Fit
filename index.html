@@ -10,6 +10,9 @@
       content="MatrixFit — academia de musculação. Conheça a academia, veja planos e diárias, e fale com a gente."
     />
 
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="shortcut icon" href="./assets/imagens/logo-academia.png" type="image/png" />
+    <link rel="apple-touch-icon" href="./assets/imagens/logo-academia.png" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="preload" href="./assets/imagens/logo-academia.png" as="image" />
     <script defer src="./script.js"></script>
@@ -210,34 +213,45 @@
             </article>
 
             <article class="card contact-card contact-card--form">
-              <h3 class="card__title">Envie sua mensagem</h3>
-              <p class="card__text">Preencha os dados abaixo para solicitar informações sobre planos, horários e matrícula.</p>
+              <div class="contact-form-shell">
+                <p class="contact-form__eyebrow">Entrar em contato</p>
+                <h3 class="card__title contact-form__title">Fale conosco e comece sua transformação</h3>
+                <p class="card__text contact-form__intro">Preencha os dados abaixo para solicitar informações sobre planos, horários e matrícula. Nossa equipe responde com rapidez.</p>
 
-              <form class="contact-form">
-                <div class="contact-form__grid">
+                <form class="contact-form" data-contact-form novalidate>
                   <label class="field">
                     <span class="field__label">Nome</span>
-                    <input class="field__input" type="text" name="nome" placeholder="Seu nome" />
+                    <span class="field__control">
+                      <span class="field__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                          <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.2 0-7 2.1-7 5v1h14v-1c0-2.9-2.8-5-7-5Z" />
+                        </svg>
+                      </span>
+                      <input class="field__input" type="text" name="nome" placeholder="Seu nome" required />
+                    </span>
+                    <span class="field__error">Informe seu nome.</span>
                   </label>
 
                   <label class="field">
-                    <span class="field__label">Telefone</span>
-                    <input class="field__input" type="tel" name="telefone" placeholder="(77) 99999-9999" />
+                    <span class="field__label">Mensagem</span>
+                    <span class="field__control field__control--textarea">
+                      <span class="field__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                          <path d="M4 5h16v10H7l-3 3z" />
+                        </svg>
+                      </span>
+                      <textarea class="field__input field__input--textarea" name="mensagem" placeholder="Quero saber mais sobre os planos da MatrixFit." required></textarea>
+                    </span>
+                    <span class="field__error">Escreva sua mensagem.</span>
                   </label>
-                </div>
 
-                <label class="field">
-                  <span class="field__label">E-mail</span>
-                  <input class="field__input" type="email" name="email" placeholder="voce@email.com" />
-                </label>
-
-                <label class="field">
-                  <span class="field__label">Mensagem</span>
-                  <textarea class="field__input field__input--textarea" name="mensagem" placeholder="Quero saber mais sobre os planos da MatrixFit."></textarea>
-                </label>
-
-                <button class="btn btn--primary contact-form__submit" type="submit">Solicitar atendimento</button>
-              </form>
+                  <div class="contact-form__footer">
+                    <p class="contact-form__helper">Ao tocar no botao, abrimos o WhatsApp nesta mesma tela com sua mensagem pronta e a pagina de origem identificada.</p>
+                    <button class="btn btn--primary contact-form__submit" type="submit">Enviar pelo WhatsApp</button>
+                    <p class="contact-form__status" role="status" aria-live="polite"></p>
+                  </div>
+                </form>
+              </div>
             </article>
           </div>
 

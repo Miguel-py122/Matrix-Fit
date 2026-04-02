@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MatrixFit">
+  <defs>
+    <linearGradient id="mfGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#25df76" />
+      <stop offset="100%" stop-color="#109a50" />
+    </linearGradient>
+    <linearGradient id="mfDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1116" />
+      <stop offset="100%" stop-color="#040608" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#ffffff" />
+  <path d="M7 17c0-2.2 1.8-4 4-4h4.6c1.5 0 2.8.8 3.5 2.1l4.3 8 4.2-8a4 4 0 0 1 3.5-2.1h4.6c2.2 0 4 1.8 4 4v30c0 2.2-1.8 4-4 4h-4.9c-2.2 0-4-1.8-4-4V30.8l-4.2 7.7a3.4 3.4 0 0 1-6 0l-4.2-7.7V47c0 2.2-1.8 4-4 4H11c-2.2 0-4-1.8-4-4V17Z" fill="url(#mfDark)" />
+  <path d="M37 15h16c2.3 0 4.1 1.9 4 4.2-.1 1.1-.6 2.2-1.4 3L48 30h8.3c2.1 0 3.8 1.6 4 3.7.1 1.2-.3 2.4-1.1 3.3l-9.8 10.9A4 4 0 0 1 46.4 49H31.5l8.8-10.4H34c-2.2 0-4-1.8-4-4 0-1 .4-2 1.1-2.8L40.6 21H37c-2.2 0-4-1.8-4-4s1.8-4 4-4Z" fill="url(#mfGreen)" />
+</svg>

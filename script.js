@@ -283,6 +283,105 @@
     });
   }
 
+  function initContactForms() {
+    const forms = Array.from(document.querySelectorAll('[data-contact-form]'));
+    if (!forms.length) return;
+
+    const whatsappBaseUrl = 'https://wa.me/5577999202077';
+
+    forms.forEach((form) => {
+      const submitButton = form.querySelector('.contact-form__submit');
+      const status = form.querySelector('.contact-form__status');
+      const fields = Array.from(form.querySelectorAll('.field'));
+
+      const setStatus = (type, message) => {
+        if (!status) return;
+        status.textContent = message;
+        status.classList.remove('is-success', 'is-error');
+
+        if (!message) {
+          status.classList.remove('is-visible');
+          return;
+        }
+
+        status.classList.add('is-visible');
+        status.classList.add(type === 'success' ? 'is-success' : 'is-error');
+      };
+
+      const validateField = (field) => {
+        const input = field.querySelector('.field__input');
+        if (!input) return true;
+
+        let isValid = input.checkValidity();
+        if (isValid && input.hasAttribute('required') && typeof input.value === 'string') {
+          isValid = input.value.trim().length > 0;
+        }
+
+        field.classList.toggle('is-invalid', !isValid);
+        input.setAttribute('aria-invalid', isValid ? 'false' : 'true');
+        return isValid;
+      };
+
+      const validateForm = () => fields.every(validateField);
+
+      fields.forEach((field) => {
+        const input = field.querySelector('.field__input');
+        if (!input) return;
+
+        input.setAttribute('aria-invalid', 'false');
+        input.addEventListener('blur', () => validateField(field));
+        input.addEventListener('input', () => {
+          if (field.classList.contains('is-invalid')) validateField(field);
+          if (status?.classList.contains('is-error')) setStatus('', '');
+        });
+      });
+
+      form.addEventListener('submit', (event) => {
+        const isValid = validateForm();
+
+        if (!isValid) {
+          event.preventDefault();
+          setStatus('error', 'Revise os campos destacados para enviar sua mensagem.');
+          fields.find((field) => field.classList.contains('is-invalid'))?.querySelector('.field__input')?.focus();
+          return;
+        }
+
+        event.preventDefault();
+        setStatus('', '');
+
+        const formData = new FormData(form);
+        const nome = String(formData.get('nome') || '').trim();
+        const mensagem = String(formData.get('mensagem') || '').trim();
+        const pageName = document.title || 'MatrixFit';
+        const pagePath = window.location.pathname.split('/').pop() || 'index.html';
+        const text = [
+          'Oi MatrixFit! Quero falar com a equipe.',
+          '',
+          `Pagina de origem: ${pageName} (${pagePath})`,
+          `Nome: ${nome}`,
+          'Mensagem:',
+          mensagem,
+        ].join('\n');
+        const whatsappUrl = `${whatsappBaseUrl}?text=${encodeURIComponent(text)}`;
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.classList.add('is-loading');
+        }
+
+        window.setTimeout(() => {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('is-loading');
+          }
+
+          setStatus('success', 'Abrindo o WhatsApp nesta mesma tela.');
+          window.location.href = whatsappUrl;
+        }, 450);
+      });
+    });
+  }
+
   document.querySelectorAll('[data-go]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const go = btn.getAttribute('data-go');
@@ -298,5 +397,6 @@
   initMobileMenu();
   initPaginatedGalleries();
   initPlanCarousels();
+  initContactForms();
   setPricingMode('mensal');
 })();
