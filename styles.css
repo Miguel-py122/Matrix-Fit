@@ -6817,13 +6817,21 @@ body{
 
   .topbar{
     isolation: isolate;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998 !important;
     background: linear-gradient(180deg, rgba(10,11,13,.96), rgba(10,11,13,.88));
     backdrop-filter: blur(18px);
     border-bottom: 1px solid rgba(255,255,255,.06);
     box-shadow: 0 14px 36px rgba(0,0,0,.28);
+    pointer-events: auto;
   }
 
   .topbar__inner{
+    position: relative;
+    z-index: 9999;
     min-height: 72px;
     padding: 10px 0;
     align-items: center;
@@ -6853,6 +6861,8 @@ body{
     box-shadow:
       0 14px 30px rgba(0,0,0,.22),
       inset 0 1px 0 rgba(255,255,255,.08);
+    z-index: 10001 !important;
+    pointer-events: auto !important;
     touch-action: manipulation;
     transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease, background .24s ease;
   }
@@ -6914,6 +6924,8 @@ body{
   }
 
   .tabs{
+    position: absolute;
+    z-index: 10000 !important;
     display: grid !important;
     gap: 10px;
     padding: 18px;
@@ -6958,6 +6970,8 @@ body{
 
   .page-pricing .plan-group,
   .page-dailies .plan-group{
+    position: relative;
+    z-index: 1;
     padding: 18px 14px 20px;
     overflow: hidden;
   }
@@ -6972,10 +6986,22 @@ body{
   .page-pricing .plan-carousel,
   .page-dailies .plan-carousel{
     position: relative;
+    z-index: 1;
     padding: 2px 0 16px !important;
     width: 100%;
     max-width: 100%;
     overflow: hidden !important;
+  }
+
+  .page-pricing .plan-carousel::before,
+  .page-pricing .plan-carousel::after,
+  .page-dailies .plan-carousel::before,
+  .page-dailies .plan-carousel::after,
+  .page-pricing .pricing-cards--variants::before,
+  .page-pricing .pricing-cards--variants::after,
+  .page-dailies .pricing-cards--variants::before,
+  .page-dailies .pricing-cards--variants::after{
+    pointer-events: none !important;
   }
 
   .page-pricing .plan-carousel__arrow,
