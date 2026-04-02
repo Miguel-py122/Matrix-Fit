@@ -6796,6 +6796,25 @@ body{
    ========================================================= */
 
 @media (max-width: 768px){
+  .page-pricing,
+  .page-dailies,
+  .page-pricing *,
+  .page-dailies *{
+    box-sizing: border-box;
+  }
+
+  .page-pricing,
+  .page-dailies,
+  .page-pricing .main,
+  .page-dailies .main,
+  .page-pricing .container,
+  .page-dailies .container,
+  .page-pricing .plan-groups,
+  .page-dailies .plan-groups{
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   .topbar{
     isolation: isolate;
     background: linear-gradient(180deg, rgba(10,11,13,.96), rgba(10,11,13,.88));
@@ -6940,7 +6959,7 @@ body{
   .page-pricing .plan-group,
   .page-dailies .plan-group{
     padding: 18px 14px 20px;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .page-pricing .plan-group__head,
@@ -6953,17 +6972,19 @@ body{
   .page-pricing .plan-carousel,
   .page-dailies .plan-carousel{
     position: relative;
-    padding: 2px 0 24px !important;
-    overflow: visible !important;
+    padding: 2px 0 16px !important;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden !important;
   }
 
   .page-pricing .plan-carousel__arrow,
   .page-dailies .plan-carousel__arrow{
     display: grid !important;
     place-items: center;
-    width: 42px;
-    height: 42px;
-    top: 50%;
+    width: 36px;
+    height: 36px;
+    top: 46%;
     transform: translateY(-50%);
     border-radius: 999px;
     border: 1px solid rgba(255,255,255,.1);
@@ -6971,19 +6992,19 @@ body{
       linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
       rgba(11, 13, 16, .94);
     box-shadow: 0 14px 28px rgba(0,0,0,.28);
-    font-size: 28px;
+    font-size: 22px;
     line-height: 1;
     z-index: 5;
   }
 
   .page-pricing .plan-carousel__arrow--prev,
   .page-dailies .plan-carousel__arrow--prev{
-    left: -10px;
+    left: 4px;
   }
 
   .page-pricing .plan-carousel__arrow--next,
   .page-dailies .plan-carousel__arrow--next{
-    right: -10px;
+    right: 4px;
   }
 
   .page-pricing .plan-carousel__arrow[disabled],
@@ -6998,13 +7019,16 @@ body{
     display: flex !important;
     flex-wrap: nowrap;
     gap: 10px;
+    width: 100%;
+    max-width: 100%;
     height: auto !important;
     min-height: 0 !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
-    padding: 2px 24px 12px !important;
+    margin: 0 auto;
+    padding: 2px 0 8px !important;
     scroll-snap-type: x mandatory !important;
-    scroll-padding-inline: 24px;
+    scroll-padding-inline: 0;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -7026,14 +7050,14 @@ body{
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
   .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
     display: flex !important;
-    flex: 0 0 calc(100% - 68px);
-    width: calc(100% - 68px) !important;
-    max-width: calc(100% - 68px) !important;
+    flex: 0 0 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     min-width: 0 !important;
     min-height: auto !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 16px 14px 14px !important;
+    padding: 14px 13px 12px !important;
     position: relative !important;
     top: auto !important;
     left: auto !important;
@@ -7044,6 +7068,7 @@ body{
     z-index: auto !important;
     border-radius: 24px;
     box-shadow: 0 18px 42px rgba(0,0,0,.26);
+    box-sizing: border-box;
     scroll-snap-align: start !important;
     scroll-snap-stop: always;
   }
@@ -7058,7 +7083,7 @@ body{
 
   .page-pricing .pricing-cards--variants .pricing-card--clean,
   .page-dailies .pricing-cards--variants .pricing-card--clean{
-    gap: 14px;
+    gap: 12px;
   }
 
   .page-pricing .pricing-cards--variants .pricing-card__badge-row,
@@ -7095,8 +7120,8 @@ body{
 
   .page-pricing .pricing-cards--variants .pricing-card__plan,
   .page-dailies .pricing-cards--variants .pricing-card__plan{
-    font-size: clamp(19px, 5.6vw, 24px) !important;
-    line-height: 1;
+    font-size: clamp(17px, 5.1vw, 22px) !important;
+    line-height: .98;
     letter-spacing: -.03em;
     overflow-wrap: anywhere;
   }
@@ -7104,9 +7129,9 @@ body{
   .page-pricing .pricing-cards--variants .pricing-card__subtitle,
   .page-dailies .pricing-cards--variants .pricing-card__subtitle,
   .page-dailies .pricing-cards--variants .daily-card__text{
-    margin-top: 6px;
-    font-size: 12px !important;
-    line-height: 1.45;
+    margin-top: 4px;
+    font-size: 11px !important;
+    line-height: 1.38;
     overflow-wrap: anywhere;
   }
 
@@ -7172,7 +7197,7 @@ body{
     grid-template-columns: 1fr;
     gap: 8px;
     margin-top: auto;
-    padding-top: 4px;
+    padding-top: 2px;
   }
 
   .page-pricing .pricing-cards--variants .btn--pricing,
@@ -7203,10 +7228,68 @@ body{
     display: flex !important;
     justify-content: center;
     width: fit-content;
-    margin: 10px auto 0;
-    padding: 6px 10px;
+    margin: 6px auto 0;
+    padding: 5px 9px;
     border-radius: 999px;
     background: rgba(255,255,255,.03);
     border: 1px solid rgba(255,255,255,.05);
+  }
+}
+
+@media (max-width: 380px){
+  .page-pricing .plan-group,
+  .page-dailies .plan-group{
+    padding: 14px 10px 16px;
+  }
+
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants{
+    gap: 8px;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
+  .page-dailies .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
+    padding: 12px 11px 10px !important;
+    border-radius: 20px;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card__plan,
+  .page-dailies .pricing-cards--variants .pricing-card__plan{
+    font-size: clamp(16px, 4.9vw, 20px) !important;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card__subtitle,
+  .page-dailies .pricing-cards--variants .pricing-card__subtitle,
+  .page-dailies .pricing-cards--variants .daily-card__text,
+  .page-pricing .pricing-cards--variants .pricing-card__features li,
+  .page-dailies .pricing-cards--variants .pricing-card__features li{
+    font-size: 11px !important;
+    line-height: 1.36;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card__price-block,
+  .page-dailies .pricing-cards--variants .pricing-card__price-block{
+    padding: 10px 10px 9px;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card__price,
+  .page-dailies .pricing-cards--variants .pricing-card__price{
+    font-size: clamp(24px, 8.2vw, 32px) !important;
+  }
+
+  .page-pricing .pricing-cards--variants .btn--pricing,
+  .page-dailies .pricing-cards--variants .btn--pricing,
+  .page-pricing .pricing-cards--variants .btn--pricing-secondary,
+  .page-dailies .pricing-cards--variants .btn--pricing-secondary{
+    min-height: 42px;
+    font-size: 11px;
   }
 }
