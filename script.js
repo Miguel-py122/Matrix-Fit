@@ -3,6 +3,35 @@
   const yearEl = document.getElementById('ano');
   const pricingModeButtons = Array.from(document.querySelectorAll('[data-pricing-mode]'));
   const pricingSections = Array.from(document.querySelectorAll('[data-pricing-section]'));
+  const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function getPreferredScrollBehavior() {
+    return reducedMotionMedia.matches ? 'auto' : 'smooth';
+  }
+
+  function scheduleNextFrame(callback) {
+    if (typeof window.requestAnimationFrame !== 'function') {
+      callback();
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      callback();
+    });
+  }
+
+  function createAnimationFrameThrottler(callback) {
+    let frameId = 0;
+
+    return () => {
+      if (frameId) return;
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = 0;
+        callback();
+      });
+    };
+  }
 
   function isMobileDevice() {
     if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
@@ -132,7 +161,6 @@
       let touchStartX = 0;
       let touchStartY = 0;
       let resizeFrame = 0;
-      let scrollEndTimer = 0;
       let cardOffsets = [];
       let currentCard = null;
       let cardObserver = null;
@@ -166,6 +194,23 @@
 
       const measureCards = () => {
         cardOffsets = cards.map((card) => card.offsetLeft);
+      };
+
+      const scheduleLayoutRefresh = () => {
+        window.cancelAnimationFrame(resizeFrame);
+        resizeFrame = window.requestAnimationFrame(() => {
+          resizeFrame = 0;
+          measureCards();
+
+          if (mobileMedia.matches) {
+            connectObserver();
+            scrollToCard(currentIndex, 'auto');
+            return;
+          }
+
+          disconnectObserver();
+          renderDesktop();
+        });
       };
 
       const setCurrentIndex = (index) => {
@@ -238,6 +283,8 @@
         setCurrentIndex(closestIndex);
       };
 
+      const syncIndexFromScrollOnFrame = createAnimationFrameThrottler(syncIndexFromScroll);
+
       const disconnectObserver = () => {
         if (!cardObserver) return;
         cardObserver.disconnect();
@@ -275,9 +322,10 @@
         cards.forEach((card) => cardObserver.observe(card));
       };
 
-      const scrollToCard = (index, behavior = 'smooth') => {
+      const scrollToCard = (index, behavior = getPreferredScrollBehavior()) => {
         setCurrentIndex(index);
         if (!cardOffsets.length) measureCards();
+        if (!mobileMedia.matches) return;
         track.scrollTo({ left: cardOffsets[currentIndex] ?? 0, behavior });
       };
 
@@ -343,30 +391,44 @@
         { passive: true },
       );
 
-      cards.forEach((card, index) => {
-        card.addEventListener('mouseenter', () => {
-          if (mobileMedia.matches) return;
-          currentIndex = index;
-          renderDesktop();
-        });
+      track.addEventListener('mouseover', (event) => {
+        if (mobileMedia.matches) return;
 
-        card.addEventListener('click', () => {
-          if (mobileMedia.matches) {
-            scrollToCard(index);
-            return;
-          }
+        const card = event.target instanceof Element ? event.target.closest('.pricing-card') : null;
+        if (!card || !track.contains(card)) return;
 
-          currentIndex = index;
-          renderDesktop();
-        });
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget instanceof Node && card.contains(relatedTarget)) return;
+
+        const nextIndex = cards.indexOf(card);
+        if (nextIndex === -1 || nextIndex === currentIndex) return;
+
+        currentIndex = nextIndex;
+        renderDesktop();
+      });
+
+      track.addEventListener('click', (event) => {
+        const card = event.target instanceof Element ? event.target.closest('.pricing-card') : null;
+        if (!card || !track.contains(card)) return;
+
+        const nextIndex = cards.indexOf(card);
+        if (nextIndex === -1) return;
+
+        if (mobileMedia.matches) {
+          scrollToCard(nextIndex);
+          return;
+        }
+
+        if (nextIndex === currentIndex) return;
+        currentIndex = nextIndex;
+        renderDesktop();
       });
 
       track.addEventListener(
         'scroll',
         () => {
           if (!mobileMedia.matches || cardObserver) return;
-          window.clearTimeout(scrollEndTimer);
-          scrollEndTimer = window.setTimeout(syncIndexFromScroll, 90);
+          syncIndexFromScrollOnFrame();
         },
         { passive: true },
       );
@@ -397,12 +459,7 @@
       }
 
       window.addEventListener('resize', () => {
-        window.cancelAnimationFrame(resizeFrame);
-        resizeFrame = window.requestAnimationFrame(() => {
-          measureCards();
-          if (mobileMedia.matches) renderMobile('auto');
-          else disconnectObserver();
-        });
+        scheduleLayoutRefresh();
       });
 
       syncMode();
@@ -443,29 +500,11 @@
       toggleMenu();
     });
 
-    toggle.addEventListener(
-      'touchend',
-      (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        toggleMenu();
-      },
-      { passive: false },
-    );
-
-    toggle.addEventListener('pointerup', (event) => {
-      if (event.pointerType !== 'touch') return;
-      event.preventDefault();
-      event.stopPropagation();
-      toggleMenu();
-    });
-
     nav.addEventListener('click', (event) => {
       event.stopPropagation();
-    });
 
-    nav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', closeMenu);
+      const link = event.target instanceof Element ? event.target.closest('a') : null;
+      if (link) closeMenu();
     });
 
     document.addEventListener('click', (event) => {
@@ -487,19 +526,51 @@
     const galleries = Array.from(document.querySelectorAll('.gallery--pagination'));
     if (!galleries.length) return;
 
+    const lightbox = createGalleryLightbox();
+
     galleries.forEach((gallery) => {
       const items = Array.from(gallery.querySelectorAll('.gallery__item'));
+      const images = items
+        .map((item, index) => {
+          const image = item.querySelector('img');
+          if (!image) return null;
+
+          item.setAttribute('role', 'button');
+          item.setAttribute('tabindex', '0');
+          item.setAttribute('aria-label', `Ampliar imagem ${index + 1}`);
+
+          return {
+            src: image.currentSrc || image.getAttribute('src') || '',
+            alt: image.getAttribute('alt') || `Imagem ${index + 1}`,
+          };
+        })
+        .filter(Boolean);
+
       if (items.length <= 1) {
         items.forEach((item) => {
           item.classList.add('is-active');
           item.removeAttribute('hidden');
         });
+
+        if (images.length === 1) {
+          items[0]?.addEventListener('click', () => {
+            lightbox.open(images, 0, items[0]);
+          });
+
+          items[0]?.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            lightbox.open(images, 0, items[0]);
+          });
+        }
+
         return;
       }
 
       let currentIndex = 0;
       let touchStartX = 0;
       let touchStartY = 0;
+      let renderFrame = 0;
       const controls = document.createElement('div');
       controls.className = 'gallery__controls';
 
@@ -525,7 +596,7 @@
         button.setAttribute('aria-label', `Ir para imagem ${index + 1}`);
         button.addEventListener('click', () => {
           currentIndex = index;
-          render();
+          scheduleRender();
         });
         dots.appendChild(button);
         return button;
@@ -545,14 +616,34 @@
         });
       };
 
+      const scheduleRender = () => {
+        window.cancelAnimationFrame(renderFrame);
+        renderFrame = window.requestAnimationFrame(() => {
+          renderFrame = 0;
+          render();
+        });
+      };
+
       prevButton.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + items.length) % items.length;
-        render();
+        scheduleRender();
       });
 
       nextButton.addEventListener('click', () => {
         currentIndex = (currentIndex + 1) % items.length;
-        render();
+        scheduleRender();
+      });
+
+      items.forEach((item, index) => {
+        item.addEventListener('click', () => {
+          lightbox.open(images, currentIndex === index ? currentIndex : index, item);
+        });
+
+        item.addEventListener('keydown', (event) => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          lightbox.open(images, currentIndex === index ? currentIndex : index, item);
+        });
       });
 
       gallery.addEventListener(
@@ -580,13 +671,176 @@
           if (deltaX < 0) currentIndex = (currentIndex + 1) % items.length;
           else currentIndex = (currentIndex - 1 + items.length) % items.length;
 
-          render();
+          scheduleRender();
         },
         { passive: true },
       );
 
       render();
     });
+  }
+
+  function createGalleryLightbox() {
+    const lightbox = document.createElement('div');
+    lightbox.className = 'gallery-lightbox';
+    lightbox.setAttribute('hidden', '');
+    lightbox.setAttribute('aria-hidden', 'true');
+
+    lightbox.innerHTML = `
+      <div class="gallery-lightbox__backdrop" data-lightbox-close></div>
+      <div class="gallery-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Visualização ampliada da galeria">
+        <button class="gallery-lightbox__close" type="button" aria-label="Fechar imagem">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <button class="gallery-lightbox__nav gallery-lightbox__nav--prev" type="button" aria-label="Imagem anterior">
+          <span aria-hidden="true">&lsaquo;</span>
+        </button>
+        <figure class="gallery-lightbox__figure">
+          <img class="gallery-lightbox__image" alt="" decoding="async" />
+          <figcaption class="gallery-lightbox__caption"></figcaption>
+        </figure>
+        <button class="gallery-lightbox__nav gallery-lightbox__nav--next" type="button" aria-label="Próxima imagem">
+          <span aria-hidden="true">&rsaquo;</span>
+        </button>
+      </div>
+    `;
+
+    document.body.appendChild(lightbox);
+
+    const imageEl = lightbox.querySelector('.gallery-lightbox__image');
+    const captionEl = lightbox.querySelector('.gallery-lightbox__caption');
+    const closeButton = lightbox.querySelector('.gallery-lightbox__close');
+    const prevButton = lightbox.querySelector('.gallery-lightbox__nav--prev');
+    const nextButton = lightbox.querySelector('.gallery-lightbox__nav--next');
+    let activeImages = [];
+    let activeIndex = 0;
+    let lastFocusedElement = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const updateNavState = () => {
+      const hasMultiple = activeImages.length > 1;
+      prevButton?.toggleAttribute('hidden', !hasMultiple);
+      nextButton?.toggleAttribute('hidden', !hasMultiple);
+    };
+
+    const renderImage = () => {
+      const currentImage = activeImages[activeIndex];
+      if (!currentImage || !imageEl || !captionEl) return;
+
+      imageEl.classList.remove('is-visible');
+
+      scheduleNextFrame(() => {
+        imageEl.setAttribute('src', currentImage.src);
+        imageEl.setAttribute('alt', currentImage.alt || 'Imagem ampliada');
+        captionEl.textContent = currentImage.alt || '';
+        imageEl.classList.add('is-visible');
+      });
+
+      updateNavState();
+    };
+
+    const close = () => {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('has-gallery-lightbox');
+
+      window.setTimeout(() => {
+        if (!lightbox.classList.contains('is-open')) {
+          lightbox.setAttribute('hidden', '');
+          imageEl?.removeAttribute('src');
+        }
+      }, reducedMotionMedia.matches ? 0 : 220);
+
+      if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus({ preventScroll: true });
+      }
+    };
+
+    const open = (images, index, triggerElement) => {
+      if (!images.length) return;
+
+      activeImages = images;
+      activeIndex = Math.max(0, Math.min(index, activeImages.length - 1));
+      lastFocusedElement = triggerElement instanceof HTMLElement ? triggerElement : document.activeElement;
+
+      lightbox.removeAttribute('hidden');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('has-gallery-lightbox');
+      renderImage();
+
+      scheduleNextFrame(() => {
+        lightbox.classList.add('is-open');
+        closeButton?.focus({ preventScroll: true });
+      });
+    };
+
+    const goTo = (direction) => {
+      if (activeImages.length <= 1) return;
+      activeIndex = (activeIndex + direction + activeImages.length) % activeImages.length;
+      renderImage();
+    };
+
+    closeButton?.addEventListener('click', close);
+    prevButton?.addEventListener('click', () => goTo(-1));
+    nextButton?.addEventListener('click', () => goTo(1));
+
+    lightbox.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.hasAttribute('data-lightbox-close') || target.classList.contains('gallery-lightbox__dialog')) close();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (lightbox.getAttribute('aria-hidden') === 'true') return;
+
+      if (event.key === 'Escape') {
+        close();
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        goTo(-1);
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        goTo(1);
+      }
+    });
+
+    lightbox.addEventListener(
+      'touchstart',
+      (event) => {
+        const touch = event.changedTouches[0];
+        if (!touch) return;
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      },
+      { passive: true },
+    );
+
+    lightbox.addEventListener(
+      'touchend',
+      (event) => {
+        const touch = event.changedTouches[0];
+        if (!touch) return;
+
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) < 44 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        if (deltaX < 0) goTo(1);
+        else goTo(-1);
+      },
+      { passive: true },
+    );
+
+    return {
+      open,
+    };
   }
 
   function initContactForms() {
@@ -597,6 +851,7 @@
       const submitButton = form.querySelector('.contact-form__submit');
       const status = form.querySelector('.contact-form__status');
       const fields = Array.from(form.querySelectorAll('.field'));
+      let isSubmitting = false;
 
       const setStatus = (type, message) => {
         if (!status) return;
@@ -641,6 +896,11 @@
       });
 
       form.addEventListener('submit', (event) => {
+        if (isSubmitting) {
+          event.preventDefault();
+          return;
+        }
+
         const isValid = validateForm();
 
         if (!isValid) {
@@ -666,12 +926,14 @@
         ].join('\n');
 
         if (submitButton) {
+          isSubmitting = true;
           submitButton.disabled = true;
           submitButton.classList.add('is-loading');
         }
 
-        window.setTimeout(() => {
+        scheduleNextFrame(() => {
           if (submitButton) {
+            isSubmitting = false;
             submitButton.disabled = false;
             submitButton.classList.remove('is-loading');
           }
@@ -684,7 +946,7 @@
 
           setStatus('success', 'Abrindo o WhatsApp com sua mensagem pronta.');
           openWhatsApp(text);
-        }, 450);
+        });
       });
     });
   }
@@ -765,7 +1027,7 @@
       if (!go) return;
       const panel = document.getElementById(`painel-${go}`);
       if (panel) {
-        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        panel.scrollIntoView({ behavior: getPreferredScrollBehavior(), block: 'start' });
       }
     });
   });
