@@ -4184,6 +4184,63 @@ body{
   }
 }
 
+@media (max-width: 768px){
+  .page-pricing .plan-carousel,
+  .page-dailies .plan-carousel{
+    overflow: visible !important;
+    padding-bottom: 0 !important;
+  }
+
+  .page-pricing .plan-carousel::before,
+  .page-pricing .plan-carousel::after,
+  .page-dailies .plan-carousel::before,
+  .page-dailies .plan-carousel::after,
+  .page-pricing .plan-carousel__arrow,
+  .page-dailies .plan-carousel__arrow,
+  .page-pricing .plan-carousel__dots,
+  .page-dailies .plan-carousel__dots{
+    display: none !important;
+  }
+
+  .page-pricing .pricing-cards--variants,
+  .page-dailies .pricing-cards--variants{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    scroll-snap-type: none !important;
+    scroll-behavior: auto !important;
+    contain: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  .page-pricing .pricing-cards--variants .pricing-card--clean,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-pricing .pricing-cards--variants .pricing-card--clean.is-hidden,
+  .page-dailies .pricing-cards--variants .pricing-card--clean,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-current,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-prev,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-next,
+  .page-dailies .pricing-cards--variants .pricing-card--clean.is-hidden{
+    flex: initial !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    scroll-snap-align: unset !important;
+    scroll-snap-stop: normal !important;
+    contain: none !important;
+    will-change: auto !important;
+  }
+}
+
 .contact__cta{
   color: #111;
   background: linear-gradient(135deg, var(--site-gold), #f59e0b);
